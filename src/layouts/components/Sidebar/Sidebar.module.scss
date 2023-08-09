@@ -1,0 +1,30 @@
+.wrapper {
+    width: 240px;
+    background-color: #efe9d9;
+    height: calc(100vh - 90px);
+    display: flex;
+    flex-direction: column;
+}
+.header {
+    padding-bottom: 15px;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 16px;
+    width: 240px;
+    background-color: #efe9d9;
+}
+.info-logo {
+    padding: 25px;
+    display: flex;
+    align-items: center;
+}
+.icon-logo {
+    width: 50px;
+    height: 50px;
+}
+.logo {
+    width: 120px;
+    height: 40px;
+}
+.body {
+    overflow-y: overlay;
+}

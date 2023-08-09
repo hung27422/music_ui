@@ -1,6 +1,12 @@
 @import 'normalize.css';
 
 :root {
+    --white: #fff;
+    --text-color: #a5826f;
+}
+* {
+    padding: 0;
+    margin: 0;
 }
 html {
     font-size: 62.5%;
@@ -13,4 +19,30 @@ body {
 @font-face {
     font-family: Inter;
     src: url(../../assets/font/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa2pL7SUc.woff2);
+}
+//Bỏ thuộc tính mặc định
+button,
+input,
+[tabindex],
+select,
+textarea {
+    outline: none;
+    border: none;
+    font-family: var(--font-family);
+}
+a[href] {
+    color: var(--text-color);
+    text-decoration: none;
+}
+//Scrollbar
+html ::-webkit-scrollbar {
+    width: 6px;
+}
+html ::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+}
+html ::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset #fff;
+    border-radius: 4px;
 }
