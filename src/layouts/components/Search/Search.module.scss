@@ -1,0 +1,75 @@
+.wrapper {
+    display: flex;
+    align-items: center;
+    max-width: 440px;
+    width: 100%;
+    height: 40px;
+    background-color: var(--white);
+    border-radius: 20px;
+}
+.btn-search {
+    background-color: transparent;
+    padding: 8px 12px;
+    font-size: 1.6rem;
+    font-weight: 400;
+    &:hover {
+        opacity: 0.8;
+        cursor: pointer;
+    }
+}
+.search {
+    font-weight: 500;
+    width: 380px;
+    padding: 12px 0;
+    font-size: 1.4rem;
+}
+.search-result {
+    width: 420px;
+    padding: 12px 10px;
+}
+.body {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 8px;
+    transition: 0.3s;
+    cursor: pointer;
+    &:hover {
+        background-color: #16182308;
+    }
+}
+.body:hover .action {
+    display: block;
+}
+.action {
+    display: flex;
+    padding: 8px 10px;
+    display: none;
+    transition: 0.3s;
+}
+.act-btn {
+    font-size: 1.6rem;
+    padding: 8px;
+    margin: 0 4px;
+    border-radius: 50%;
+    background-color: transparent;
+    line-height: 1.6rem;
+    &:hover {
+        background-color: #08090f08;
+    }
+}
+.title {
+    padding: 8px 10px;
+    font-size: 14px;
+    font-weight: 700;
+    padding: 0 10px 8px;
+    display: flex;
+    justify-content: space-between;
+}
+//Tippy
+.tippy-content {
+}
+.tippy-box {
+    font-size: 12px;
+    background-color: rgba(84, 84, 84, 0.92);
+}

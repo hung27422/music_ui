@@ -27,9 +27,9 @@ function Sidebar() {
                     <img className={cx('logo')} src={images.logo} alt="logo" />
                 </Link>
                 <Menu>
-                    <MenuItems title="Home" to={configs.router.home} icon={<HomeIcon />} />
-                    <MenuItems title="Trending" to={configs.router.trend} icon={<TrendingIcon />} />
-                    <MenuItems title="Library" to={configs.router.library} icon={<LibraryIcon />} />
+                    <MenuItems title="Trang chủ" to={configs.router.home} icon={<HomeIcon />} />
+                    <MenuItems title="Xu hướng" to={configs.router.trend} icon={<TrendingIcon />} />
+                    <MenuItems title="Thư viện" to={configs.router.library} icon={<LibraryIcon />} />
                 </Menu>
             </div>
             <div className={cx('sidebar-divide')}></div>

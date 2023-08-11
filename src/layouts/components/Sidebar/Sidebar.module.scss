@@ -1,6 +1,6 @@
 .wrapper {
     width: 240px;
-    background-color: #efe9d9;
+    background-color: var(--bg-color-sidebar);
     height: calc(100vh - 90px);
     display: flex;
     flex-direction: column;
@@ -10,7 +10,7 @@
     border-bottom: 1px solid #ccc;
     margin-bottom: 16px;
     width: 240px;
-    background-color: #efe9d9;
+    background-color: var(--bg-color-sidebar);
 }
 .info-logo {
     padding: 25px;

@@ -10,7 +10,7 @@ function DefaultLayout({ children }) {
         <div className={cx('wrapper')}>
             <div className={cx('content')}>
                 <Sidebar></Sidebar>
-                <div>{children}</div>
+                <div className={cx('page')}>{children}</div>
             </div>
             <PlayMusic></PlayMusic>
         </div>

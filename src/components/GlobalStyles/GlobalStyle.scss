@@ -2,7 +2,10 @@
 
 :root {
     --white: #fff;
+    --black: #000;
     --text-color: #a5826f;
+    --bg-color-homepage: #efe9d9;
+    --bg-color-sidebar: #E5DDC7;
 }
 * {
     padding: 0;
@@ -45,4 +48,13 @@ html ::-webkit-scrollbar-thumb {
 html ::-webkit-scrollbar-track {
     -webkit-box-shadow: inset #fff;
     border-radius: 4px;
+}
+//Tippy
+.tippy-box {
+    font-size: 12px;
+    background-color: rgba(84, 84, 84, 0.92)
+}
+.tippy-arrow{
+    background-color:transparent;
+    color: rgba(84, 84, 84, 0.92)
 }

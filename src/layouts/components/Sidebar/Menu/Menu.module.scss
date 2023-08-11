@@ -2,7 +2,7 @@
     display: flex;
     align-items: center;
     color: var(--text-color);
-    font-size: 1.6rem;
+    font-size: 1.5rem;
     line-height: 20px;
     padding: 12px 32px;
     border-left: 4px solid transparent;
@@ -13,4 +13,5 @@
 }
 .title {
     margin-left: 12px;
+    font-weight: 600;
 }
