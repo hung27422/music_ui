@@ -1,3 +1,14 @@
-.wrapper{
-    background-color: var(--bg-color-homepage);
+.wrapper {
+    background-color: var(--primary);
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 90px);
+}
+.content {
+    overflow-y: overlay;
+    margin-top: 16px;
+}
+.slider img {
+    width: 150px;
+    height: 150px;
 }

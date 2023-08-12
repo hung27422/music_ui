@@ -11,7 +11,6 @@ import { faHeart as faHeartRegular } from '@fortawesome/free-regular-svg-icons';
 
 import Popper from '~/components/Popper';
 import MusicItem from '~/components/MusicItem';
-import { click } from '@testing-library/user-event/dist/click';
 
 const cx = classNames.bind(styles);
 function Search() {
@@ -22,16 +21,16 @@ function Search() {
                 <div className={cx('body')}>
                     <MusicItem />
                     <div className={cx('action')}>
-                       <Tippy interactive content="Thêm vào thư viện" delay={[200,0]}>
+                        <Tippy interactive content="Thêm vào thư viện" delay={[200, 0]}>
                             <span className={cx('act-btn')}>
                                 <FontAwesomeIcon icon={faHeartRegular} />
                             </span>
-                       </Tippy>
-                       <Tippy interactive content="Khác" delay={[200,0]}>
+                        </Tippy>
+                        <Tippy interactive content="Khác" delay={[200, 0]}>
                             <span className={cx('act-btn')}>
                                 <FontAwesomeIcon icon={faEllipsis} />
-                            </span>
-                       </Tippy>
+                            </span> 
+                        </Tippy>
                     </div>
                 </div>
             </div>
@@ -39,7 +38,7 @@ function Search() {
     );
 
     return (
-        <TippyHeadless trigger='click' render={searchResult} offset={[0, 0]} interactive>
+        <TippyHeadless trigger="click" render={searchResult} offset={[0, 0]} interactive>
             <div className={cx('wrapper')}>
                 <button className={cx('btn-search')}>
                     <FontAwesomeIcon icon={faMagnifyingGlass} />

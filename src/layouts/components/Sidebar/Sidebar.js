@@ -44,6 +44,7 @@ function Sidebar() {
                             to={configs.router.songFavorite}
                             icon={<SongFavoriteIcon />}
                         />
+                        
                     </Menu>
                 </div>
             </div>
