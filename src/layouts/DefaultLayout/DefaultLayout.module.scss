@@ -1,9 +1,11 @@
 .wrapper{
-    
+    display: flex;
+    flex-direction: column;
 }
 
 .content{
     display: flex;
+    margin-left: 240px;
 }
 .page{
     background-color: var(--bg-color-homepage);

@@ -5,6 +5,10 @@
     padding: 16px 60px;
     z-index: 10;
     background-color: var(--primary);
+    position: fixed;
+    right: 0;
+    left: 240px;
+    top: 0;
 }
 .action-left {
     display: flex;
@@ -36,7 +40,7 @@
     font-size: 2rem;
     line-height: 3.8rem;
     color: var(--white);
-    background-color: #D5B87C;
+    background-color: #d5b87c;
     text-align: center;
     opacity: 0.9;
     border-radius: 50%;

@@ -1,43 +1,11 @@
-.wrapper{
-    display: flex;
-    justify-content: center;
-    object-fit: cover;
-    position: relative;
-}
-.btn-pre{
-    position: absolute;
-    font-size: 3rem;
-    left: 100px;
-    top: 80px;
-}
-.btn-next{
-    position: absolute;
-    font-size: 3rem;
-    right: 100px;
-    top: 80px;
-}
-.btn-action{
-    background-color: #e7e7e726;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
+.wrapper {
+    width: 100%;
     cursor: pointer;
-    color: var(--white);
 }
-.slider-item{
-    margin: 0 14px;
-}
-.none{
-    display: none;
-}
-.slider-item img{
+.slider-item img {
     width: 374px;
     height: 210px;
     border-radius: 12px;
+    margin: auto;
 }
-.styles-module_item-container{
-    width: 400px !important;
-}
-.carousel{
-    width: 400px;
-}
+

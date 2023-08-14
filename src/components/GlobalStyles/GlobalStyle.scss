@@ -5,7 +5,10 @@
     --black: #000;
     --primary: #efe9d9;
     --text-color: #a5826f;
-    --bg-color-sidebar: #E5DDC7;
+    --bg-color-sidebar: #e5ddc7;
+    --height-page: calc(100vh - 90px);
+    --width-page: calc(100% - 240px);
+    --padding-layout-page: 60px;
 }
 * {
     padding: 0;
@@ -39,11 +42,7 @@ a[href] {
 }
 //Scrollbar
 html ::-webkit-scrollbar {
-    display: block;
-    position: relative;
-    top: 0;
     width: 6px;
-    // height: 8px;
 }
 html ::-webkit-scrollbar-thumb {
     border-radius: 4px;
@@ -53,12 +52,28 @@ html ::-webkit-scrollbar-track {
     -webkit-box-shadow: inset #fff;
     border-radius: 4px;
 }
+
 //Tippy
 .tippy-box {
     font-size: 12px;
-    background-color: rgba(84, 84, 84, 0.92)
+    background-color: rgba(84, 84, 84, 0.92);
 }
-.tippy-arrow{
-    background-color:transparent;
-    color: rgba(84, 84, 84, 0.92)
+.tippy-arrow {
+    background-color: transparent;
+    color: rgba(84, 84, 84, 0.92);
+}
+//Slick
+.slick-next {
+    right: 110px;
+}
+.slick-prev {
+    z-index: 10;
+    left: 110px;
+}
+.slick-slider {
+    padding: 0 60px;
+    margin: 0;
+}
+.slick-dots li button {
+    display: none;
 }

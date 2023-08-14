@@ -2,6 +2,6 @@ const router = {
     home: '/',
     library: '/library',
     trend: '/trend',
-    songFavorite: '/songFavorite'
+    songFavorite: '/songFavorite',
 };
 export default router;
