@@ -1,16 +1,20 @@
 .wrapper {
     padding: 32px var(--padding-layout-page);
-    // &.active {
-    //     background-color: #d5b87c;
-    //     color: white !important;
-    // }
 }
-
-.outline {
-    border: 2px solid #d5b87c;
-    color: #d5b87c !important;
+.btn-action {
+    padding: 16px 0;
 }
-.btn:focus{
-    color: aqua;
-    background-color: aquamarine;
+.btn {
+    padding: 4px 24px;
+    border: 1px solid #a5826f;
+    border-radius: 100px;
+    font-weight: 400;
+    font-size: 12px;
+    text-transform: uppercase;
+    margin-right: 15px;
+    cursor: pointer;
+}
+.btn.active{
+    background-color: #a5826f;
+    color: white;
 }

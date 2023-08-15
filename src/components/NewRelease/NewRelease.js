@@ -1,19 +1,45 @@
 import classNames from 'classnames/bind';
 import styles from './NewRelease.module.scss';
-
-import { NavLink, Route, Router, Routes } from 'react-router-dom';
-import NavLinkItem from '../NavLinkItem/NavLinkItem';
-import Zingchat from './Zingchat/Zingchat';
-import RapVietPage from './RapVietPage/RapVietPage';
-import configs from '~/Configs/config';
+import Button from '../Button/Button';
+import RapViet from './RapViet/RapViet';
+import MusicVietNam from './MusicVietNam/MusicVietNam';
+import { useState } from 'react';
 const cx = classNames.bind(styles);
 function NewRelease({ title }) {
+    const [active, setActive] = useState('1');
+    const [showPage, setShowPage] = useState('1');
+
+    const handleActive = (e) => {
+        setActive(e.target.id);
+    };
+
     return (
         <div className={cx('wrapper')}>
             <h2>{title}</h2>
             <div className={cx('btn-action')}>
-                <NavLink className={cx('btn')}>Rap Viet</NavLink>
-                <NavLink className={cx('btn')}>Rap </NavLink>
+                <button id={'1'} onClick={handleActive} className={cx('btn', active === '1' ? 'active' : '')}>
+                    Tất cả
+                </button>
+                <button id={'2'} onClick={handleActive} className={cx('btn', active === '2' ? 'active' : '')}>
+                    Việt Nam
+                </button>
+                <button id={'3'} onClick={handleActive} className={cx('btn', active === '3' ? 'active' : '')}>
+                    Rap Việt
+                </button>
+            </div>
+            <div className={cx('body')}>
+                {active === '1' && <div>Tất cả</div>}
+                {active === '2' && (
+                    <div className={cx('page-mini', 'active')}>
+                        <MusicVietNam></MusicVietNam>
+                    </div>
+                )}
+                {active === '3' && (
+                    <div className={cx('page-mini')}>
+                        <RapViet></RapViet>
+                    </div>
+                )}
+                
             </div>
         </div>
     );

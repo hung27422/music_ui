@@ -7,9 +7,6 @@ import classNames from 'classnames/bind';
 import styles from './Homepage.module.scss';
 import SliderItem from '~/components/SliderItem/SliderItem';
 import NewRelease from '~/components/NewRelease/NewRelease';
-import { NavLink } from 'react-router-dom';
-import RapVietPage from '../../components/NewRelease/RapVietPage/RapVietPage';
-import Zingchat from '../../components/NewRelease/Zingchat/Zingchat';
 const cx = classNames.bind(styles);
 function Homepage() {
     return (
