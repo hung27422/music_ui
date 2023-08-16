@@ -1,17 +1,26 @@
 .wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    border-radius: 6px;
+    margin-bottom: 8px;
+    &:hover .btn-play {
+        display: block;
+    }
+    &:hover {
+        background-color: #a791911a;
+    }
+    &:hover .action {
+        display: flex;
+    }
+}
+.content {
     position: relative;
     display: flex;
     align-items: center;
     padding: 8px 10px;
-    border-radius: 8px;
     cursor: pointer;
-    width: 300px;
-    &:hover .btn-play {
-        display: block;
-    }
-    &:hover .avatar {
-        opacity: 0.5;
-    }
 }
 .wrapper .figure {
     background: #00000080;
@@ -50,4 +59,25 @@
 .author {
     font-size: 1.4rem;
     color: #777;
+}
+//Classes
+.border {
+    border: 1px solid var(--text-color);
+    // background-color: #E5DDC7;
+}
+//Tippy
+.action {
+    display: none;
+    align-items: center;
+    padding: 8px 10px;
+}
+.act-btn {
+    padding: 8px;
+    margin: 0 2px;
+    font-size: 1.6rem;
+    border-radius: 50%;
+
+    &:hover {
+        background-color: #aa94941a;
+    }
 }

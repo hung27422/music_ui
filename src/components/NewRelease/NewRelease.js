@@ -4,6 +4,7 @@ import Button from '../Button/Button';
 import RapViet from './RapViet/RapViet';
 import MusicVietNam from './MusicVietNam/MusicVietNam';
 import { useState } from 'react';
+import AllMusic from './AllMusic/AllMusic';
 const cx = classNames.bind(styles);
 function NewRelease({ title }) {
     const [active, setActive] = useState('1');
@@ -28,9 +29,13 @@ function NewRelease({ title }) {
                 </button>
             </div>
             <div className={cx('body')}>
-                {active === '1' && <div>Tất cả</div>}
+                {active === '1' && (
+                    <div className={cx('page-mini')}>
+                        <AllMusic></AllMusic>
+                    </div>
+                )}
                 {active === '2' && (
-                    <div className={cx('page-mini', 'active')}>
+                    <div className={cx('page-mini')}>
                         <MusicVietNam></MusicVietNam>
                     </div>
                 )}
@@ -39,7 +44,6 @@ function NewRelease({ title }) {
                         <RapViet></RapViet>
                     </div>
                 )}
-                
             </div>
         </div>
     );

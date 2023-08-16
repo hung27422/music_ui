@@ -6,6 +6,7 @@
     height: var(--height-page);
     display: flex;
     flex-direction: column;
+    z-index: 10;
 }
 .header {
     padding-bottom: 15px;
@@ -15,7 +16,7 @@
     background-color: var(--bg-color-sidebar);
 }
 .info-logo {
-    padding:16px 25px;
+    padding: 16px 25px;
     display: flex;
     align-items: center;
 }
@@ -28,5 +29,5 @@
     height: 40px;
 }
 .body {
-    overflow-y: overlay;
+    overflow: overlay;
 }

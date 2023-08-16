@@ -31,38 +31,19 @@
     padding: 12px 10px;
 }
 .body {
+    position: relative;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: space-between;
     border-radius: 8px;
     transition: 0.3s;
     cursor: pointer;
-    &:hover {
-        background-color: #16182308;
-    }
 }
 .body:hover .action {
     display: block;
 }
-.action {
-    position: relative;
-    display: flex;
-    align-items: center;
-    padding: 8px 10px;
-    display: none;
-    transition: 0.3s;
-}
-.act-btn {
-    font-size: 1.6rem;
-    padding: 8px;
-    margin: 0 4px;
-    border-radius: 50%;
-    background-color: transparent;
-    line-height: 1.6rem;
-    &:hover {
-        background-color: #08090f08;
-    }
-}
+
 .title {
     padding: 8px 10px;
     font-size: 14px;

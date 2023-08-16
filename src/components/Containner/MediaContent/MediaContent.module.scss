@@ -1,0 +1,70 @@
+.wrapper {
+    height: 500px;
+}
+.body {
+    position: relative;
+    top: 0;
+    width: 214px;
+    padding: 0 12px 0 12px;
+    height: fit-content;
+    cursor: pointer;
+}
+.size-image {
+    width: 214px;
+    overflow: hidden;
+    border-radius: 4px;
+}
+.action {
+    display: none;
+    align-items: center;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    right: auto;
+    bottom: auto;
+    transform: translateX(-50%) translateY(-50%);
+}
+.title {
+    margin-bottom: 20px;
+}
+.avatar {
+    padding-top: 100%;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: top center;
+    border-radius: 4px;
+    transition-duration: 0.7s;
+    transition-timing-function: ease;
+    transition-delay: 0s;
+    transition-property: transform;
+}
+.img-hover {
+    &:hover .action {
+        display: flex;
+    }
+    &:hover .avatar {
+        transform: scale(1.1) translateZ(0);
+    }
+}
+.description {
+    margin-top: 12px;
+    font-size: 1.4rem;
+    color: var(--text-color);
+}
+//ActionButton
+.btn-play {
+    width: 45px !important;
+    height: 45px !important;
+    font-size: 3rem !important;
+    border: 1px solid var(--white);
+}
+.btn-icon {
+    width: 30px;
+    height: 30px;
+    margin: 0 12px;
+    font-size: 2rem;
+    color: var(--white);
+    background-color: transparent;
+    border-radius: 50%;
+    cursor: pointer;
+}

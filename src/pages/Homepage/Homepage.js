@@ -7,6 +7,9 @@ import classNames from 'classnames/bind';
 import styles from './Homepage.module.scss';
 import SliderItem from '~/components/SliderItem/SliderItem';
 import NewRelease from '~/components/NewRelease/NewRelease';
+import MediaContent from '~/components/Containner/MediaContent';
+import Containner from '~/components/Containner/Containner';
+
 const cx = classNames.bind(styles);
 function Homepage() {
     return (
@@ -18,6 +21,9 @@ function Homepage() {
                 </div>
                 <div className={cx('new-release')}>
                     <NewRelease title="Mới phát hành" />
+                </div>
+                <div className={cx('media-content')}>
+                    <Containner title="Chill" />
                 </div>
             </div>
         </div>

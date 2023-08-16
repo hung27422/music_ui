@@ -2,16 +2,20 @@
     display: flex;
     flex-direction: column;
     background-color: var(--primary);
-    height: var(--height-page);
+    height: calc(100% - 90px);
     width: 100%;
 }
 .content {
     margin-top: 82px;
     display: flex;
     flex-direction: column;
+    padding: 0 60px;
 }
 .slider img {
     width: 150px;
     height: 150px;
 }
 ////
+.media-content{
+    display: flex;
+}

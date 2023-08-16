@@ -1,9 +1,13 @@
 .wrapper {
-    padding: 32px var(--padding-layout-page);
+    padding: 32px 0;
+    height: 100%;
+    width: 100%;
+    background-color: var(--primary);
 }
 .btn-action {
     padding: 16px 0;
 }
+
 .btn {
     padding: 4px 24px;
     border: 1px solid #a5826f;
@@ -14,7 +18,10 @@
     margin-right: 15px;
     cursor: pointer;
 }
-.btn.active{
+.btn.active {
     background-color: #a5826f;
     color: white;
+}
+.page-mini{
+    width: 100%;
 }
