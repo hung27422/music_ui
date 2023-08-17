@@ -1,7 +1,22 @@
 .wrapper {
+    z-index: 10;
     position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
     bottom: 0;
     width: 100%;
     height: 90px;
     background-color: #d5b87c;
+}
+.controls-left{
+    width: fit-content;
+    height: 68px;
+}
+.controls-player{
+
+}
+.controls-right{
+    padding-right: 20px;
 }

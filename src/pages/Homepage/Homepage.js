@@ -24,6 +24,8 @@ function Homepage() {
                 </div>
                 <div className={cx('media-content')}>
                     <Containner title="Chill" />
+                    <Containner title="Tình yêu khủng long" />
+                    <Containner title="Tâm trạng hơi suy" />
                 </div>
             </div>
         </div>

@@ -5,6 +5,7 @@
     width: 100%;
     border-radius: 6px;
     margin-bottom: 8px;
+    height: fit-content;
     &:hover .btn-play {
         display: block;
     }
@@ -13,6 +14,7 @@
     }
     &:hover .action {
         display: flex;
+        border: none !important;
     }
 }
 .content {
@@ -23,10 +25,12 @@
     cursor: pointer;
 }
 .wrapper .figure {
-    background: #00000080;
     width: 52px;
     height: 52px;
     border-radius: 4px;
+    &:hover {
+        background-color: #00000080;
+    }
 }
 .avatar {
     width: 52px;
@@ -59,12 +63,9 @@
 .author {
     font-size: 1.4rem;
     color: #777;
+    display: block;
 }
-//Classes
-.border {
-    border: 1px solid var(--text-color);
-    // background-color: #E5DDC7;
-}
+
 //Tippy
 .action {
     display: none;
@@ -76,8 +77,49 @@
     margin: 0 2px;
     font-size: 1.6rem;
     border-radius: 50%;
-
+    pointer-events: auto;
     &:hover {
         background-color: #aa94941a;
     }
+}
+
+//Props
+.border {
+    border: 1px solid var(--text-color);
+    // background-color: #E5DDC7;
+}
+.showAction {
+    display: flex;
+}
+.noneHover {
+    &:hover .btn-play {
+        display: none;
+    }
+    pointer-events: none;
+    &:hover {
+        background-color: #d5b87c;
+    }
+}
+.animation {
+    width: 55px;
+    height: 55px;
+    background-color: transparent;
+    border-radius: 50% !important;
+    animation: xoayvong 5s linear 0s infinite;
+    border: 1px solid var(--primary);
+}
+@keyframes xoayvong {
+    from {
+        -webkit-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+    }
+    to {
+        -webkit-transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+    }
+}
+.ml26{
+    margin-left: 26px;
 }
