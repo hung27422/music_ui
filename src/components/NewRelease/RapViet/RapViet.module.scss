@@ -1,0 +1,10 @@
+.wrapper {
+    display: flex;
+    padding: 0 24px 0 12px;
+}
+.body-left,
+.body-mid,
+.body-right {
+    padding-right: 24px;
+    width: 404px;
+}

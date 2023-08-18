@@ -10,13 +10,18 @@
     height: 90px;
     background-color: #d5b87c;
 }
-.controls-left{
-    width: fit-content;
+.controls-left {
+    width: 30%;
     height: 68px;
 }
-.controls-player{
-
+.controls-player {
+    text-align: center;
 }
-.controls-right{
-    padding-right: 20px;
+.controls-right {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 30%;
+    height: 43px;
+    padding-right: 40px;
 }

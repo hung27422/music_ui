@@ -1,0 +1,55 @@
+.wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.btn-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    margin-left: 12px;
+}
+.sound-music{
+    width: 60px;
+    display: flex;
+    align-items: center;
+}
+.sound-bar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 15px;
+    width: 100%;
+    cursor: pointer;
+}
+.btn-sound{
+    width: 106px;
+    display: flex;
+}
+.sound-slider {
+    background: linear-gradient(
+        to right,
+        var(--primary) 0%,
+        var(--primary) 68.32220862865796%,
+        var(--primary) 68.32220862865796%,
+        var(--primary) 100%
+    );
+    // display: flex;
+    height: 3px;
+    width: 100%;
+    border-radius: 4px;
+    cursor: pointer;
+    &:hover .sound-handle {
+        display: block;
+    }
+}
+.sound-handle {
+    display: none;
+    border-radius: 50%;
+    background-color: #a5826f;
+    transform: translate(0px, -3.5px);
+    width: 10px;
+    height: 10px;
+    // visibility: hidden;
+}

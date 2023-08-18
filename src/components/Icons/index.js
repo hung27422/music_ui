@@ -6,4 +6,13 @@ export {
     TopicOptionsIcon,
     ListenNearIcon,
     SongFavoriteIcon,
+    RandomIcon,
+    PrevIcon,
+    PlayIcon,
+    NextIcon,
+    RepeatIcon,
+    MVIcon,
+    MicroIcon,
+    SoundIcon,
+    MuteIcon
 } from './Icons';

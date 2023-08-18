@@ -17,9 +17,14 @@
         border: none !important;
     }
 }
+.width{
+    width: fit-content !important;
+}
 .content {
     position: relative;
     display: flex;
+    flex-grow: 1;
+    max-width: fit-content;
     align-items: center;
     padding: 8px 10px;
     cursor: pointer;
@@ -52,7 +57,7 @@
 }
 
 .music-name {
-    font-size: 1.6rem;
+    font-size: 1.5rem;
     color: var(--black);
     font-weight: 600;
     &:hover {
