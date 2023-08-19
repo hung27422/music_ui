@@ -1,5 +1,5 @@
 import classNames from 'classnames/bind';
-import MusicItem from '~/components/MusicItem';
+import MusicItem from '~/components/MusicItem - S';
 import styles from './RapViet.module.scss';
 const cx = classNames.bind(styles);
 function RapViet() {

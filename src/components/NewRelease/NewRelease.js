@@ -1,6 +1,6 @@
 import classNames from 'classnames/bind';
 import styles from './NewRelease.module.scss';
-import Button from '../Button/Button';
+
 import RapViet from './RapViet/RapViet';
 import MusicVietNam from './MusicVietNam/MusicVietNam';
 import { useState } from 'react';
@@ -8,7 +8,6 @@ import AllMusic from './AllMusic/AllMusic';
 const cx = classNames.bind(styles);
 function NewRelease({ title }) {
     const [active, setActive] = useState('1');
-    const [showPage, setShowPage] = useState('1');
 
     const handleActive = (e) => {
         setActive(e.target.id);

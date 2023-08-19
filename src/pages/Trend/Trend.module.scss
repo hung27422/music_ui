@@ -1,0 +1,19 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--primary);
+    height: var(--height-page);
+}
+.body {
+    padding: 110px 60px 0 60px;
+}
+.logo-trend {
+    background-color: var(--white);
+    border-radius: 8px;
+    text-align: center;
+}
+.image {
+    padding: 8px;
+    width: 215px;
+    height: 48px;
+}

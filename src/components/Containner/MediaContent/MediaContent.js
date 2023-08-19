@@ -23,15 +23,19 @@ function MediaContent() {
                         ></div>
                     </div>
                     <div className={cx('action')}>
-                        <button className={cx('btn-heart', 'btn-icon')}>
-                            <FontAwesomeIcon icon={faHeart}></FontAwesomeIcon>
-                        </button>
+                       <Tippy content='Thêm vào thư viện'>
+                            <button className={cx('btn-heart', 'btn-icon')}>
+                                <FontAwesomeIcon icon={faHeart}></FontAwesomeIcon>
+                            </button>
+                       </Tippy>
                         <button className={cx('btn-play', 'btn-icon')}>
                             <FontAwesomeIcon icon={faPlay}></FontAwesomeIcon>
                         </button>
-                        <button className={cx('btn-menu', 'btn-icon')}>
-                            <FontAwesomeIcon icon={faEllipsis}></FontAwesomeIcon>
-                        </button>
+                        <Tippy content='Khác'>
+                            <button className={cx('btn-menu', 'btn-icon')}>
+                                <FontAwesomeIcon icon={faEllipsis}></FontAwesomeIcon>
+                            </button>
+                        </Tippy>
                     </div>
                 </div>
                 <div className={cx('description')}>

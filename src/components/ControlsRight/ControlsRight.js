@@ -1,5 +1,8 @@
 import classNames from 'classnames/bind';
 
+import Tippy from '@tippyjs/react';
+import 'tippy.js/dist/tippy.css';
+
 import styles from './ControlsRight.module.scss';
 import { MVIcon, MicroIcon, SoundIcon } from '../Icons';
 const cx = classNames.bind(styles);
@@ -7,12 +10,16 @@ const cx = classNames.bind(styles);
 function ControlsRight() {
     return (
         <div className={cx('wrapper')}>
-            <button className={cx('btn-icon', 'btn-mv')}>
-                <MVIcon />
-            </button>
-            <button className={cx('btn-icon', 'btn-micro')}>
-                <MicroIcon />
-            </button>
+            <Tippy content='MV'>
+                <button className={cx('btn-icon', 'btn-mv')}>
+                    <MVIcon />
+                </button>
+            </Tippy>
+            <Tippy content='Xem lời bài hát'>
+                <button className={cx('btn-icon', 'btn-micro')}>
+                    <MicroIcon />
+                </button>
+            </Tippy>
             <div className={cx('btn-icon', 'btn-sound')}>
                 <SoundIcon />
                 <div className={cx('sound-music')}>

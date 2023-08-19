@@ -1,7 +1,7 @@
 import classNames from 'classnames/bind';
 
 import styles from './AllMusic.module.scss';
-import MusicItem from '~/components/MusicItem/MusicItem';
+import MusicItem from '~/components/MusicItem - S/MusicItem';
 const cx = classNames.bind(styles);
 function AllMusic() {
     return (

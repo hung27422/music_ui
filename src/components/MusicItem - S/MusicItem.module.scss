@@ -44,6 +44,10 @@
     opacity: 1;
     border-radius: 4px;
 }
+.size{
+    width: 64px;
+    height: 64px;
+}
 .btn-play {
     position: absolute;
     display: none;
@@ -78,13 +82,14 @@
     padding: 8px 10px;
 }
 .act-btn {
-    padding: 8px;
+    padding:0px 8px;
+    line-height: 32px;
     margin: 0 2px;
     font-size: 1.6rem;
     border-radius: 50%;
     pointer-events: auto;
     &:hover {
-        background-color: #aa94941a;
+        background-color: #695e5e1a;
     }
 }
 
@@ -100,6 +105,7 @@
     &:hover .btn-play {
         display: none;
     }
+    cursor: pointer;
     pointer-events: none;
     &:hover {
         background-color: #d5b87c;

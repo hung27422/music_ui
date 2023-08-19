@@ -1,5 +1,5 @@
 import classNames from 'classnames/bind';
-import MusicItem from '~/components/MusicItem/MusicItem';
+import MusicItem from '~/components/MusicItem - S/MusicItem';
 import styles from './MusicVietNam.module.scss';
 const cx = classNames.bind(styles);
 function MusicVietNam() {

@@ -10,14 +10,14 @@ import { faHeart as faHeartRegular } from '@fortawesome/free-regular-svg-icons';
 
 import styles from './MusicItem.module.scss';
 const cx = classNames.bind(styles);
-function MusicItem({ border, showAction,noneHover,animation,ml26,width}) {
+function MusicItem({ border, showAction,noneHover,size,ml26,width}) {
     
     return (
         <div className={cx('wrapper',{border},{noneHover},{width})}>
             <div className={cx('content')}>
                 <div className={cx('figure')}>
                     <img
-                        className={cx('avatar',{animation})}
+                        className={cx('avatar',{size})}
                         src="https://photo-resize-zmp3.zmdcdn.me/w165_r1x1_webp/cover/6/d/9/6/6d961b2a82f151a0f9af7de928e8f809.jpg"
                         alt="a loi"
                     />

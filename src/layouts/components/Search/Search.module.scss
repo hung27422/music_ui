@@ -27,6 +27,18 @@
     font-size: 1.4rem;
     caret-color: var(--text-color);
 }
+.delete-value,
+.loading {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 43%;
+    color: var(--text-color);
+    opacity: 0.7;
+    font-size: 1.4rem;
+    padding: 2px;
+    cursor: pointer;
+}
 .search-result {
     width: 420px;
     padding: 12px 10px;
@@ -53,4 +65,3 @@
     display: flex;
     justify-content: space-between;
 }
-
