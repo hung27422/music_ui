@@ -16,7 +16,9 @@ function Header() {
                     <FontAwesomeIcon className={cx('btn-arrow')} icon={faChevronLeft} />
                     <FontAwesomeIcon className={cx('btn-arrow')} icon={faChevronRight} />
                 </div>
+                {/* Search */}
                 <Search />
+                {/* // */}
             </div>
             <div className={cx('action-right')}>
                 <Tippy content="Tải app" interactive>

@@ -10,25 +10,27 @@ import { faHeart as faHeartRegular } from '@fortawesome/free-regular-svg-icons';
 
 import styles from './MusicItem.module.scss';
 const cx = classNames.bind(styles);
-function MusicItem({ border, showAction,noneHover,size,ml26,width}) {
-    
+function MusicItem({ border, showAction, noneHover, size, ml26, width, data }) {
+    if (data === undefined) {
+        return <>....</>;
+    }
     return (
-        <div className={cx('wrapper',{border},{noneHover},{width})}>
+        <div className={cx('wrapper', { border }, { noneHover }, { width })}>
             <div className={cx('content')}>
                 <div className={cx('figure')}>
-                    <img
-                        className={cx('avatar',{size})}
-                        src="https://photo-resize-zmp3.zmdcdn.me/w165_r1x1_webp/cover/6/d/9/6/6d961b2a82f151a0f9af7de928e8f809.jpg"
-                        alt="a loi"
-                    />
+                    <img className={cx('avatar', { size })} src={data.avatar} alt="a loi" />
                 </div>
                 <FontAwesomeIcon className={cx('btn-play')} icon={faPlay} />
-                <div className={cx('info',{ml26})}>    
-                    <span className={cx('music-name')}>À Lôi</span>
-                    <Link className={cx('author')}>Double2T, Masew</Link>
+                <div className={cx('info', { ml26 })}>
+                    <span className={cx('music-name')}>{data.title}</span>
+                    <div style={{ display: 'flex' }}>
+                        <Link className={cx('author')}>{data.artist}</Link>
+                        {data.artist2 && <Link className={cx('author')}>{data.artist2}</Link>}
+                    </div>
                 </div>
             </div>
-            <div className={cx('action',{showAction})}>
+
+            <div className={cx('action', { showAction })}>
                 <Tippy interactive content="Thêm vào thư viện" delay={[200, 0]}>
                     <span className={cx('act-btn')}>
                         <FontAwesomeIcon icon={faHeartRegular} />
