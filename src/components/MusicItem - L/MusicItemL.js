@@ -12,35 +12,36 @@ import images from '~/assets/images/images';
 
 const cx = classNames.bind(styles);
 
-function MusicItemL() {
+function MusicItemL({ data }) {
     return (
         <div className={cx('wrapper')}>
             <div className={cx('media-left')}>
                 <div className={cx('number-order')}>
-                    <span className={cx('number')}>1</span>
+                    {data.numberorder === 1 && <span className={cx('top1', 'number')}>1</span>}
+                    {data.numberorder === 2 && <span className={cx('top2', 'number')}>2</span>}
+                    {data.numberorder === 3 && <span className={cx('top3', 'number')}>3</span>}
+                    {(data.numberorder !== 1) && (data.numberorder !== 2) && (data.numberorder !== 3) && (
+                        <span className={cx('number','no-top')}>{data.numberorder}</span>
+                    )}
                 </div>
                 <span className={cx('sort')}> -- </span>
                 <div className={cx('info-music')}>
-                    <img
-                        className={cx('avatar')}
-                        src="https://photo-resize-zmp3.zmdcdn.me/w165_r1x1_webp/cover/a/5/1/e/a51eccf0d34d67155eb9ba4989ac5861.jpg"
-                        alt=""
-                    />
+                    <img className={cx('avatar')} src={data.avatar} alt={data.title} />
                     <div className={cx('info-playlist')}>
-                        <p className={cx('name-song')}>Ngõ Chạm</p>
+                        <p className={cx('name-song')}>{data.title}</p>
                         <div className={cx('info-single')}>
-                            <span className={cx('name-single')}>Emily, </span>
-                            <span className={cx('name-single')}>BigDaddy</span>
+                            <span className={cx('name-single')}>{data.artist}, </span>
+                            {data.artist2 && <span className={cx('name-single')}>{data.artist2}</span>}
                         </div>
                     </div>
                 </div>
             </div>
             <div className={cx('media-mid')}>
-                <span className={cx('info-song')}>Ngõ Chạm (Single)</span>
+                <span className={cx('info-song')}>{data.title} (Single)</span>
             </div>
             <div className={cx('media-right')}>
                 <div className={cx('duration-song')}>
-                    <span>4:01</span>
+                    <span>{data.duration}</span>
                 </div>
                 <div className={cx('action')}>
                     <Tippy content="Xem lời bài hát">

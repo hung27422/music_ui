@@ -1,8 +1,8 @@
 import classNames from 'classnames/bind';
 import MusicItem from '~/components/MusicItem - S/MusicItem';
-import styles from './MusicVietNam.module.scss';
+import styles from './MusicLove.module.scss';
 const cx = classNames.bind(styles);
-function MusicVietNam() {
+function MusicLove() {
     return (
         <div className={cx('wrapper')}>
             <div className={cx('body-left')}>
@@ -27,4 +27,4 @@ function MusicVietNam() {
     );
 }
 
-export default MusicVietNam;
+export default MusicLove;

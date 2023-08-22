@@ -2,7 +2,7 @@ import classNames from 'classnames/bind';
 import styles from './NewRelease.module.scss';
 
 import RapViet from './RapViet/RapViet';
-import MusicVietNam from './MusicVietNam/MusicVietNam';
+import MusicLove from './MusicLove/MusicLove';
 import { useState } from 'react';
 import AllMusic from './AllMusic/AllMusic';
 const cx = classNames.bind(styles);
@@ -20,9 +20,9 @@ function NewRelease({ title }) {
                 <button id={'1'} onClick={handleActive} className={cx('btn', active === '1' ? 'active' : '')}>
                     Tất cả
                 </button>
-                <button id={'2'} onClick={handleActive} className={cx('btn', active === '2' ? 'active' : '')}>
-                    Việt Nam
-                </button>
+                {/* <button id={'2'} onClick={handleActive} className={cx('btn', active === '2' ? 'active' : '')}>
+                    Tình yêu
+                </button> */}
                 <button id={'3'} onClick={handleActive} className={cx('btn', active === '3' ? 'active' : '')}>
                     Rap Việt
                 </button>
@@ -33,11 +33,11 @@ function NewRelease({ title }) {
                         <AllMusic></AllMusic>
                     </div>
                 )}
-                {active === '2' && (
+                {/* {active === '2' && (
                     <div className={cx('page-mini')}>
-                        <MusicVietNam></MusicVietNam>
+                        <MusicLove></MusicLove>
                     </div>
-                )}
+                )} */}
                 {active === '3' && (
                     <div className={cx('page-mini')}>
                         <RapViet></RapViet>
