@@ -17,6 +17,7 @@ function Search() {
     const [value, setValue] = useState('');
     const [showResult, setShowResult] = useState(true);
     const [searchResult, setSearchResult] = useState([]);
+    const [selectedMusic, setSelectedMusic] = useState(null);
     const refInput = useRef();
 
     const debounceValue = useDebounce(value, 500);
@@ -37,6 +38,10 @@ function Search() {
         setShowResult(false);
     };
 
+    const handleMusicSelect = (musicData) => {
+        setSelectedMusic(musicData);
+    };
+
     useEffect(() => {
         if (!debounceValue) {
             return;
@@ -55,7 +60,7 @@ function Search() {
                 <h2 className={cx('title')}>Gợi ý kết quả</h2>
                 <div className={cx('body')}>
                     {searchResult.map((result) => {
-                        return <MusicItem key={result.id} data={result} />;
+                        return <MusicItem key={result.id} data={result} onSelect={handleMusicSelect} />;
                     })}
                 </div>
             </div>
@@ -91,7 +96,6 @@ function Search() {
                         onClick={handleClearValue}
                     ></FontAwesomeIcon>
                 )}
-                {/* {!!loading && <FontAwesomeIcon className={cx('loading')} icon={faSpinner}></FontAwesomeIcon>} */}
             </div>
         </TippyHeadless>
     );

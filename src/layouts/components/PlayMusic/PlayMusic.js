@@ -1,17 +1,18 @@
 import classNames from 'classnames/bind';
 
 import styles from './PlayMusic.module.scss';
-import MusicItem from '~/components/MusicItem - S/MusicItem';
 import ControlsMid from '~/components/ControlsMid';
 import ControlsRight from '~/components/ControlsRight';
+import ControlsLeft from '~/components/ControlsLeft/ControlsLeft';
+import { MusicContext } from '~/App';
+import { useContext } from 'react';
 const cx = classNames.bind(styles);
 
 function PlayMusic() {
+    const { selectMusic } = useContext(MusicContext);
     return (
         <div className={cx('wrapper')}>
-            <div className={cx('controls-left')}>
-                <MusicItem showAction noneHover ml26 width size />
-            </div>
+            <div className={cx('controls-left')}>{selectMusic && <ControlsLeft data={selectMusic} />}</div>
             <div className={cx('controls-player')}>
                 <ControlsMid />
             </div>

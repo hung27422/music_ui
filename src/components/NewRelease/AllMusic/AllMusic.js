@@ -18,13 +18,13 @@ function AllMusic() {
     return (
         <div className={cx('wrapper')}>
             <div className={cx('body-left')}>
-                {value.map((result) => result.column === '1' && <MusicItem border data={result}></MusicItem>)}
+                {value.map((result) => result.column === '1' && <MusicItem key={result.id} border data={result}></MusicItem>)}
             </div>
             <div className={cx('body-mid')}>
-                {value.map((result) => result.column === '2' && <MusicItem border data={result}></MusicItem>)}
+                {value.map((result) => result.column === '2' && <MusicItem key={result.id} border data={result}></MusicItem>)}
             </div>
             <div className={cx('body-right')}>
-                {value.map((result) => result.column === '3' && <MusicItem border data={result}></MusicItem>)}
+                {value.map((result) => result.column === '3' && <MusicItem key={result.id} border data={result}></MusicItem>)}
             </div>
         </div>
     );

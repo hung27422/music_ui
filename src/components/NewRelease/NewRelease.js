@@ -20,9 +20,7 @@ function NewRelease({ title }) {
                 <button id={'1'} onClick={handleActive} className={cx('btn', active === '1' ? 'active' : '')}>
                     Tất cả
                 </button>
-                {/* <button id={'2'} onClick={handleActive} className={cx('btn', active === '2' ? 'active' : '')}>
-                    Tình yêu
-                </button> */}
+
                 <button id={'3'} onClick={handleActive} className={cx('btn', active === '3' ? 'active' : '')}>
                     Rap Việt
                 </button>
@@ -33,11 +31,7 @@ function NewRelease({ title }) {
                         <AllMusic></AllMusic>
                     </div>
                 )}
-                {/* {active === '2' && (
-                    <div className={cx('page-mini')}>
-                        <MusicLove></MusicLove>
-                    </div>
-                )} */}
+
                 {active === '3' && (
                     <div className={cx('page-mini')}>
                         <RapViet></RapViet>

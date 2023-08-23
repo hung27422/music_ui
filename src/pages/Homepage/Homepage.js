@@ -7,7 +7,6 @@ import classNames from 'classnames/bind';
 import styles from './Homepage.module.scss';
 import SliderItem from '~/components/SliderItem/SliderItem';
 import NewRelease from '~/components/NewRelease/NewRelease';
-import MediaContent from '~/components/Containner/MediaContent';
 import Containner from '~/components/Containner/Containner';
 
 const cx = classNames.bind(styles);
