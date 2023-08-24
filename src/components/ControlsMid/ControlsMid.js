@@ -6,6 +6,7 @@ import styles from './ControlsMid.module.scss';
 import { NextIcon, PauseIcon, PlayIcon, PrevIcon, RandomIcon, RepeatIcon } from '../Icons/Icons';
 import { createRef, useState, forwardRef, useContext, useEffect } from 'react';
 import { MusicContext } from '../UseContextMusic/ContextMusic';
+import MusicItem from '../MusicItem - S/MusicItem';
 
 const cx = classNames.bind(styles);
 function ControlsMid({ data }) {
@@ -16,8 +17,7 @@ function ControlsMid({ data }) {
     //Handle play and pause
     //----
     const { selectPlay } = useContext(MusicContext);
-    const { selectButtonPlay } = useContext(MusicContext);
-    const [isPlaying, setIsPlaying] = useState(selectButtonPlay);
+    const { selectButtonPlay, setSelectButtonPlay } = useContext(MusicContext);
 
     // Handle button Random
     const handleRandom = () => {
@@ -35,12 +35,12 @@ function ControlsMid({ data }) {
     };
     //Handle button Play and Pause
     const handlePlay = () => {
-        if (!isPlaying) {
+        if (!selectButtonPlay) {
             selectPlay.play();
         } else {
             selectPlay.pause();
         }
-        setIsPlaying(!isPlaying);
+        setSelectButtonPlay(!selectButtonPlay);
     };
     return (
         <div className={cx('wrapper')}>
@@ -63,7 +63,7 @@ function ControlsMid({ data }) {
                 </button>
 
                 {/* PlayIcon & PauseIcon */}
-                {!!isPlaying ? (
+                {!!selectButtonPlay ? (
                     <button className={cx('btn-icon', 'btn-pause')} onClick={handlePlay}>
                         <PauseIcon />
                     </button>

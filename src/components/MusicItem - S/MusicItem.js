@@ -9,7 +9,7 @@ import { faPlay, faEllipsis } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as faHeartRegular } from '@fortawesome/free-regular-svg-icons';
 
 import styles from './MusicItem.module.scss';
-import { useState, useContext, useRef } from 'react';
+import { useState, useContext, useRef, useEffect } from 'react';
 import { MusicContext } from '../UseContextMusic/ContextMusic';
 
 const cx = classNames.bind(styles);
@@ -18,19 +18,17 @@ function MusicItem({ border, data }) {
     //Hiển thị data phần controls left => Xong ( không đụng tới)
     const { selectMusic, setSelectMusic } = useContext(MusicContext);
     // -------------------------------------------------------------
-
     //Hiển thị data phần contrls mid
     const { playMusic, pauseMusic } = useContext(MusicContext);
 
+    const { selectButtonPlay, setSelectButtonPlay } = useContext(MusicContext);
     const [isPlaying, setIsPlaying] = useState(false);
-    const {selectButtonPlay, setSelectButtonPlay} = useContext(MusicContext)
     //-- Đưa object audio chứa hàm play() và pause() vào state
     const { selectPlay, setSelectPlay } = useContext(MusicContext);
 
     if (data === undefined) {
         return <>....</>;
     }
-
     // onClick
     const handlePlayMusic = () => {
         const audio = {
@@ -41,15 +39,15 @@ function MusicItem({ border, data }) {
                 audioRef.current.pause();
             },
         };
-        if (!isPlaying) {
+        if (!selectButtonPlay) {
             audio.play();
         } else {
             audio.pause();
         }
-        setIsPlaying(!isPlaying);
+        // setIsPlaying(!isPlaying);
         setSelectPlay(audio);
         setSelectMusic(data);
-        setSelectButtonPlay(isPlaying)
+        setSelectButtonPlay(!selectButtonPlay);
     };
     return (
         <div className={cx('wrapper', { border })}>
@@ -57,7 +55,7 @@ function MusicItem({ border, data }) {
                 <div className={cx('figure')}>
                     <img className={cx('avatar')} src={data.avatar} alt={data.title} />
                 </div>
-                {!!isPlaying ? (
+                {!!selectButtonPlay && data ? (
                     <img
                         className={cx('btn-audio')}
                         src="https://zmp3-static.zmdcdn.me/skins/zmp3-v6.1/images/icons/icon-playing.gif"
