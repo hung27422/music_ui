@@ -4,13 +4,21 @@ import 'tippy.js/dist/tippy.css';
 
 import styles from './ControlsMid.module.scss';
 import { NextIcon, PauseIcon, PlayIcon, PrevIcon, RandomIcon, RepeatIcon } from '../Icons/Icons';
-import { useState } from 'react';
+import { createRef, useState, forwardRef, useContext, useEffect } from 'react';
+import { MusicContext } from '../UseContextMusic/ContextMusic';
 
 const cx = classNames.bind(styles);
-function ControlsMid() {
+function ControlsMid({ data }) {
+    const audioRef = createRef();
+    //Active repeate và random
     const [activeRD, setActiveRD] = useState(false);
     const [activeRP, setActiveRP] = useState(false);
-    const [pause, setPause] = useState(false);
+    //Handle play and pause
+    //----
+    const { selectPlay } = useContext(MusicContext);
+    const { selectButtonPlay } = useContext(MusicContext);
+    const [isPlaying, setIsPlaying] = useState(selectButtonPlay);
+
     // Handle button Random
     const handleRandom = () => {
         setActiveRD(false);
@@ -27,12 +35,13 @@ function ControlsMid() {
     };
     //Handle button Play and Pause
     const handlePlay = () => {
-        setPause(true);
+        if (!isPlaying) {
+            selectPlay.play();
+        } else {
+            selectPlay.pause();
+        }
+        setIsPlaying(!isPlaying);
     };
-    const handlePause = () => {
-        setPause(false);
-    };
-
     return (
         <div className={cx('wrapper')}>
             <div className={cx('item-top')}>
@@ -52,9 +61,10 @@ function ControlsMid() {
                 <button className={cx('btn-icon', 'btn-prev')}>
                     <PrevIcon />
                 </button>
+
                 {/* PlayIcon & PauseIcon */}
-                {!!pause ? (
-                    <button className={cx('btn-icon', 'btn-pause')} onClick={handlePause}>
+                {!!isPlaying ? (
+                    <button className={cx('btn-icon', 'btn-pause')} onClick={handlePlay}>
                         <PauseIcon />
                     </button>
                 ) : (
@@ -62,6 +72,8 @@ function ControlsMid() {
                         <PlayIcon />
                     </button>
                 )}
+                <audio ref={audioRef} src={data.media}></audio>
+
                 {/* NextIcon */}
                 <button className={cx('btn-icon', 'btn-next')}>
                     <NextIcon />

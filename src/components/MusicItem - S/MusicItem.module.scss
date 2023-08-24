@@ -93,6 +93,9 @@
     display: block;
     margin-right: 6px;
 }
+.author + .author{
+    margin-right: 0px;
+}
 
 //Tippy
 .action {

@@ -9,28 +9,47 @@ import { faPlay, faEllipsis } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as faHeartRegular } from '@fortawesome/free-regular-svg-icons';
 
 import styles from './MusicItem.module.scss';
-import { createRef, useState, useContext } from 'react';
-import { MusicContext } from '~/App';
+import { useState, useContext, useRef } from 'react';
+import { MusicContext } from '../UseContextMusic/ContextMusic';
 
 const cx = classNames.bind(styles);
 function MusicItem({ border, data }) {
-    const audioRef = createRef();
-    const [isPlaying, setIsPlaying] = useState(false);
+    const audioRef = useRef();
+    //Hiển thị data phần controls left => Xong ( không đụng tới)
     const { selectMusic, setSelectMusic } = useContext(MusicContext);
-   
+    // -------------------------------------------------------------
+
+    //Hiển thị data phần contrls mid
+    const { playMusic, pauseMusic } = useContext(MusicContext);
+
+    const [isPlaying, setIsPlaying] = useState(false);
+    const {selectButtonPlay, setSelectButtonPlay} = useContext(MusicContext)
+    //-- Đưa object audio chứa hàm play() và pause() vào state
+    const { selectPlay, setSelectPlay } = useContext(MusicContext);
 
     if (data === undefined) {
         return <>....</>;
     }
+
     // onClick
     const handlePlayMusic = () => {
+        const audio = {
+            play() {
+                audioRef.current.play();
+            },
+            pause() {
+                audioRef.current.pause();
+            },
+        };
         if (!isPlaying) {
-            audioRef.current.play();
+            audio.play();
         } else {
-            audioRef.current.pause();
+            audio.pause();
         }
         setIsPlaying(!isPlaying);
+        setSelectPlay(audio);
         setSelectMusic(data);
+        setSelectButtonPlay(isPlaying)
     };
     return (
         <div className={cx('wrapper', { border })}>
@@ -38,7 +57,7 @@ function MusicItem({ border, data }) {
                 <div className={cx('figure')}>
                     <img className={cx('avatar')} src={data.avatar} alt={data.title} />
                 </div>
-                {isPlaying ? (
+                {!!isPlaying ? (
                     <img
                         className={cx('btn-audio')}
                         src="https://zmp3-static.zmdcdn.me/skins/zmp3-v6.1/images/icons/icon-playing.gif"
@@ -58,7 +77,7 @@ function MusicItem({ border, data }) {
                     <span className={cx('music-name')}>{data.title}</span>
                     <div style={{ display: 'flex' }}>
                         <Link className={cx('author')}>{data.artist}</Link>
-                        {data.artist2 && <Link className={cx('author')}>{data.artist2}</Link>}
+                        {data.artist2 && <Link className={cx('author')}>, {data.artist2}</Link>}
                     </div>
                 </div>
             </div>
