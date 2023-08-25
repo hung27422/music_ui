@@ -4,13 +4,13 @@ import 'tippy.js/dist/tippy.css';
 
 import styles from './ControlsMid.module.scss';
 import { NextIcon, PauseIcon, PlayIcon, PrevIcon, RandomIcon, RepeatIcon } from '../Icons/Icons';
-import { createRef, useState, forwardRef, useContext, useEffect } from 'react';
+import { createRef, useState, forwardRef, useContext, useEffect, useRef } from 'react';
 import { MusicContext } from '../UseContextMusic/ContextMusic';
-import MusicItem from '../MusicItem - S/MusicItem';
 
 const cx = classNames.bind(styles);
 function ControlsMid({ data }) {
-    const audioRef = createRef();
+    const audioRef = useRef();
+    const seekRef = useRef();
     //Active repeate và random
     const [activeRD, setActiveRD] = useState(false);
     const [activeRP, setActiveRP] = useState(false);
@@ -18,7 +18,27 @@ function ControlsMid({ data }) {
     //----
     const { selectPlay } = useContext(MusicContext);
     const { selectButtonPlay, setSelectButtonPlay } = useContext(MusicContext);
+    //Handle Seek
+    const [durationTime, setDurationTime] = useState(0);
+    const { isSeek } = useContext(MusicContext);
+    const [currentTimeDown, setCurrentTimeDown] = useState(0);
 
+    useEffect(() => {
+        //Hàm đếm từ 0 đến tổng thời gian bài hát
+        const interval = setInterval(() => {
+            setCurrentTimeDown((prevTime) => {
+                if (prevTime < durationTime) {
+                    return prevTime + 1;
+                }
+                clearInterval(interval);
+                return prevTime;
+            });
+        }, 1000); // Mỗi giây tăng thêm 1 giây
+        /////
+        return () => {
+            clearInterval(interval);
+        };
+    }, [durationTime]);
     // Handle button Random
     const handleRandom = () => {
         setActiveRD(false);
@@ -42,6 +62,12 @@ function ControlsMid({ data }) {
         }
         setSelectButtonPlay(!selectButtonPlay);
     };
+    const formatTime = (time) => {
+        const minutes = Math.floor(time / 60);
+        const seconds = Math.floor(time % 60);
+        return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+    };
+
     return (
         <div className={cx('wrapper')}>
             <div className={cx('item-top')}>
@@ -72,7 +98,13 @@ function ControlsMid({ data }) {
                         <PlayIcon />
                     </button>
                 )}
-                <audio ref={audioRef} src={data.media}></audio>
+                <audio
+                    ref={audioRef}
+                    src={data.media}
+                    onLoadedData={(e) => {
+                        setDurationTime(e.currentTarget.duration);
+                    }}
+                ></audio>
 
                 {/* NextIcon */}
                 <button className={cx('btn-icon', 'btn-next')}>
@@ -92,13 +124,21 @@ function ControlsMid({ data }) {
                 </Tippy>
             </div>
             <div className={cx('duration-music')}>
-                <span className={cx('time-left')}>0:00</span>
+                <span className={cx('time-left')}>{formatTime(currentTimeDown)}</span>
                 <div className={cx('duration-bar')}>
-                    <div className={cx('duration-slider')}>
-                        <div className={cx('duration-handle')}></div>
-                    </div>
+                    <input
+                        ref={seekRef}
+                        className={cx('duration-slider')}
+                        type="range"
+                        min="0"
+                        max="100"
+                        value={isSeek}
+                        step="1"
+                        // onChange={(e) => handleSeek(e.target.value)}
+                        readOnly
+                    />
                 </div>
-                <span className={cx('time-right')}>2:33</span>
+                <span className={cx('time-right')}>{data.duration}</span>
             </div>
         </div>
     );

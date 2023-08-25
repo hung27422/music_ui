@@ -19,12 +19,20 @@ function MusicItem({ border, data }) {
     const { selectMusic, setSelectMusic } = useContext(MusicContext);
     // -------------------------------------------------------------
     //Hiển thị data phần contrls mid
-    const { playMusic, pauseMusic } = useContext(MusicContext);
-
     const { selectButtonPlay, setSelectButtonPlay } = useContext(MusicContext);
-    const [isPlaying, setIsPlaying] = useState(false);
+
     //-- Đưa object audio chứa hàm play() và pause() vào state
     const { selectPlay, setSelectPlay } = useContext(MusicContext);
+    const [truePlay, setTruePlay] = useState(false);
+    //Handle seek
+    const { currentTime, setCurrentTime } = useContext(MusicContext);
+    const [durationTime, setDurationTime] = useState(0);
+    const { isSeek, setIsSeek } = useContext(MusicContext);
+    const handleTimeUpdate = (e) => {
+        setCurrentTime(e.currentTarget.currentTime);
+        const percent = Math.floor((currentTime / durationTime) * 100);
+        setIsSeek(percent);
+    };
 
     if (data === undefined) {
         return <>....</>;
@@ -41,6 +49,7 @@ function MusicItem({ border, data }) {
         };
         if (!selectButtonPlay) {
             audio.play();
+            setTruePlay(true);
         } else {
             audio.pause();
         }
@@ -49,18 +58,22 @@ function MusicItem({ border, data }) {
         setSelectMusic(data);
         setSelectButtonPlay(!selectButtonPlay);
     };
+    const handleHideIcon = () => {
+        setTruePlay(false);
+    };
     return (
         <div className={cx('wrapper', { border })}>
             <div className={cx('content')}>
                 <div className={cx('figure')}>
                     <img className={cx('avatar')} src={data.avatar} alt={data.title} />
                 </div>
-                {!!selectButtonPlay && data ? (
+                {!!selectButtonPlay && !!truePlay ? (
                     <img
                         className={cx('btn-audio')}
                         src="https://zmp3-static.zmdcdn.me/skins/zmp3-v6.1/images/icons/icon-playing.gif"
                         alt="audio"
                         onClick={handlePlayMusic}
+                        onBlur={handleHideIcon}
                     />
                 ) : (
                     <FontAwesomeIcon
@@ -70,7 +83,14 @@ function MusicItem({ border, data }) {
                     ></FontAwesomeIcon>
                 )}
 
-                <audio ref={audioRef} src={data.media}></audio>
+                <audio
+                    ref={audioRef}
+                    src={data.media}
+                    onLoadedData={(e) => {
+                        setDurationTime(e.currentTarget.duration.toFixed(2));
+                    }}
+                    onTimeUpdate={handleTimeUpdate}
+                ></audio>
                 <div className={cx('info')}>
                     <span className={cx('music-name')}>{data.title}</span>
                     <div style={{ display: 'flex' }}>

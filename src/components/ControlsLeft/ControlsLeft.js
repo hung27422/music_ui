@@ -26,7 +26,7 @@ function ControlsLeft({ data }) {
                     <span className={cx('music-name')}>{data.title}</span>
                     <div style={{ display: 'flex' }}>
                         <Link className={cx('author')}>{data.artist}</Link>
-                        {/* {data.artist2 && <Link className={cx('author')}>{data.artist2}</Link>} */}
+                        {data.artist2 && <Link className={cx('author')}>, {data.artist2}</Link>}
                     </div>
                 </div>
             </div>

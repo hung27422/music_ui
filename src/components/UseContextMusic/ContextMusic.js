@@ -3,11 +3,15 @@ import { createContext, useState } from 'react';
 export const MusicContext = createContext(null);
 
 function ContextMusic({ children }) {
+    //Truyền dữ liệu bài hát qua controls left
     const [selectMusic, setSelectMusic] = useState(null);
-
+    //Truyền dữ liệu phát.dừng bài hát qua controls mid
     const [selectPlay, setSelectPlay] = useState(null);
-
     const [selectButtonPlay, setSelectButtonPlay] = useState(false);
+    //Truyền dữ liệu seek qua controls mid
+    const [currentTime, setCurrentTime] = useState(0);
+    const [durationTime, setDurationTime] = useState(0);
+    const [isSeek, setIsSeek] = useState(0);
     return (
         <MusicContext.Provider
             value={{
@@ -19,6 +23,13 @@ function ContextMusic({ children }) {
 
                 selectButtonPlay,
                 setSelectButtonPlay,
+
+                currentTime,
+                setCurrentTime,
+                durationTime,
+                setDurationTime,
+                isSeek,
+                setIsSeek,
             }}
         >
             {children}

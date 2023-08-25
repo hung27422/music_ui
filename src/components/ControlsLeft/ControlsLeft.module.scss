@@ -4,7 +4,6 @@
     justify-content: space-between;
     width: fit-content;
     border-radius: 6px;
-    margin-bottom: 8px;
     height: 68px;
 }
 .width {
@@ -13,14 +12,14 @@
 .content {
     position: relative;
     display: flex;
-    flex-grow: 1;
+    width: fit-content;
     width: fit-content;
     align-items: center;
     cursor: pointer;
 }
 .wrapper .figure {
-    width: 52px;
-    height: 52px;
+    width: 64px;
+    height: 64px;
     border-radius: 4px;
     margin-right: 12px;
     &:hover {
