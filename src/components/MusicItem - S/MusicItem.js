@@ -26,17 +26,21 @@ function MusicItem({ border, data }) {
     const [truePlay, setTruePlay] = useState(false);
     //Handle seek
     const { currentTime, setCurrentTime } = useContext(MusicContext);
-    const [durationTime, setDurationTime] = useState(0);
+    const { durationTime, setDurationTime } = useContext(MusicContext);
     const { isSeek, setIsSeek } = useContext(MusicContext);
-    const handleTimeUpdate = (e) => {
-        setCurrentTime(e.currentTarget.currentTime);
-        const percent = Math.floor((currentTime / durationTime) * 100);
-        setIsSeek(percent);
-    };
+    const { percentage, setPercentage } = useContext(MusicContext);
+    const { refMusic, setRefMusic } = useContext(MusicContext);
 
-    if (data === undefined) {
-        return <>....</>;
-    }
+    const handleTimeUpdate = (e) => {
+        // setCurrentTime(e.currentTarget.currentTime);
+        // const percent = Math.floor((currentTime / durationTime) * 100);
+        // setIsSeek(percent);
+        const percent = (e.currentTarget.currentTime / e.currentTarget.duration) * 100;
+        const time = e.currentTarget.currentTime;
+        setPercentage(+percent.toFixed(2));
+        setCurrentTime(time.toFixed(2));
+        setIsSeek(percentage);
+    };
     // onClick
     const handlePlayMusic = () => {
         const audio = {
@@ -57,10 +61,14 @@ function MusicItem({ border, data }) {
         setSelectPlay(audio);
         setSelectMusic(data);
         setSelectButtonPlay(!selectButtonPlay);
+        setRefMusic(audioRef);
     };
     const handleHideIcon = () => {
         setTruePlay(false);
     };
+    if (data === undefined) {
+        return <>....</>;
+    }
     return (
         <div className={cx('wrapper', { border })}>
             <div className={cx('content')}>

@@ -19,27 +19,13 @@ function ControlsMid({ data }) {
     const { selectPlay } = useContext(MusicContext);
     const { selectButtonPlay, setSelectButtonPlay } = useContext(MusicContext);
     //Handle Seek
-    const [durationTime, setDurationTime] = useState(0);
-    const { isSeek } = useContext(MusicContext);
-    const [currentTimeDown, setCurrentTimeDown] = useState(0);
+    const { isSeek, setIsSeek } = useContext(MusicContext);
+    const { currentTime, setCurrentTime } = useContext(MusicContext);
+    const { durationTime, setDurationTime } = useContext(MusicContext);
+    const { percentage, setPercentage } = useContext(MusicContext);
+    const { refMusic, setRefMusic } = useContext(MusicContext);
 
-    useEffect(() => {
-        //Hàm đếm từ 0 đến tổng thời gian bài hát
-        const interval = setInterval(() => {
-            setCurrentTimeDown((prevTime) => {
-                if (prevTime < durationTime) {
-                    return prevTime + 1;
-                }
-                clearInterval(interval);
-                return prevTime;
-            });
-        }, 1000); // Mỗi giây tăng thêm 1 giây
-        /////
-        return () => {
-            clearInterval(interval);
-        };
-    }, [durationTime]);
-    // Handle button Random
+    // Handle button Randomy
     const handleRandom = () => {
         setActiveRD(false);
     };
@@ -62,12 +48,12 @@ function ControlsMid({ data }) {
         }
         setSelectButtonPlay(!selectButtonPlay);
     };
-    const formatTime = (time) => {
-        const minutes = Math.floor(time / 60);
-        const seconds = Math.floor(time % 60);
-        return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+    //Handle seek
+    const handleSeek = (e) => {
+        const audio = refMusic.current;
+        audio.currentTime = (durationTime / 100) * e.target.value;
+        setPercentage(e.target.value);
     };
-
     return (
         <div className={cx('wrapper')}>
             <div className={cx('item-top')}>
@@ -98,14 +84,6 @@ function ControlsMid({ data }) {
                         <PlayIcon />
                     </button>
                 )}
-                <audio
-                    ref={audioRef}
-                    src={data.media}
-                    onLoadedData={(e) => {
-                        setDurationTime(e.currentTarget.duration);
-                    }}
-                ></audio>
-
                 {/* NextIcon */}
                 <button className={cx('btn-icon', 'btn-next')}>
                     <NextIcon />
@@ -124,7 +102,7 @@ function ControlsMid({ data }) {
                 </Tippy>
             </div>
             <div className={cx('duration-music')}>
-                <span className={cx('time-left')}>{formatTime(currentTimeDown)}</span>
+                <span className={cx('time-left')}>{formatTime(currentTime)}</span>
                 <div className={cx('duration-bar')}>
                     <input
                         ref={seekRef}
@@ -133,9 +111,8 @@ function ControlsMid({ data }) {
                         min="0"
                         max="100"
                         value={isSeek}
-                        step="1"
-                        // onChange={(e) => handleSeek(e.target.value)}
-                        readOnly
+                        step="0.01"
+                        onChange={handleSeek}
                     />
                 </div>
                 <span className={cx('time-right')}>{data.duration}</span>
@@ -145,3 +122,8 @@ function ControlsMid({ data }) {
 }
 
 export default ControlsMid;
+const formatTime = (time) => {
+    const minutes = Math.floor(time / 60);
+    const seconds = Math.floor(time % 60);
+    return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+};

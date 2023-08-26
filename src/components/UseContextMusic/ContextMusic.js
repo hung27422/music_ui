@@ -12,6 +12,8 @@ function ContextMusic({ children }) {
     const [currentTime, setCurrentTime] = useState(0);
     const [durationTime, setDurationTime] = useState(0);
     const [isSeek, setIsSeek] = useState(0);
+    const [percentage, setPercentage] = useState(0);
+    const [refMusic, setRefMusic] = useState();
     return (
         <MusicContext.Provider
             value={{
@@ -30,6 +32,10 @@ function ContextMusic({ children }) {
                 setDurationTime,
                 isSeek,
                 setIsSeek,
+                percentage,
+                setPercentage,
+                refMusic,
+                setRefMusic,
             }}
         >
             {children}
