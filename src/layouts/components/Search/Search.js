@@ -19,6 +19,8 @@ function Search() {
     const [searchResult, setSearchResult] = useState([]);
     const [selectedMusic, setSelectedMusic] = useState(null);
     const refInput = useRef();
+    //--Truyền currentSongIndex
+    const [currentSongIndex, setCurrentSongIndex] = useState(0);
 
     const debounceValue = useDebounce(value, 500);
 
@@ -52,14 +54,13 @@ function Search() {
                 setSearchResult(response);
             });
     }, [debounceValue]);
-
     //Logic TippyHeadless
     const searchResultTippy = (attrs) => (
         <Popper>
             <div className={cx('search-result')} tabIndex="-1" {...attrs}>
-                <h2 className={cx('title')}>Gợi ý kết quả</h2>
+                <h2 className={cx('title')}>Kết quả tìm kiếm</h2>
                 <div className={cx('body')}>
-                    {searchResult.map((result) => {
+                    {searchResult.map((result, index) => {
                         return <MusicItem key={result.id} data={result} onSelect={handleMusicSelect} />;
                     })}
                 </div>

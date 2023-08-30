@@ -6,53 +6,91 @@ import styles from './ControlsMid.module.scss';
 import { NextIcon, PauseIcon, PlayIcon, PrevIcon, RandomIcon, RepeatIcon } from '../Icons/Icons';
 import { createRef, useState, forwardRef, useContext, useEffect, useRef } from 'react';
 import { MusicContext } from '../UseContextMusic/ContextMusic';
-
+import { ValueContext } from '../NewRelease/AllMusic/AllMusic';
 const cx = classNames.bind(styles);
 function ControlsMid({ data }) {
-    const audioRef = useRef();
+    const clickRef = useRef();
     const seekRef = useRef();
     //Active repeate và random
     const [activeRD, setActiveRD] = useState(false);
-    const [activeRP, setActiveRP] = useState(false);
+    const { activeRP, setActiveRP } = useContext(MusicContext);
     //Handle play and pause
-    //----
-    const { selectPlay } = useContext(MusicContext);
     const { selectButtonPlay, setSelectButtonPlay } = useContext(MusicContext);
     //Handle Seek
-    const { isSeek, setIsSeek } = useContext(MusicContext);
-    const { currentTime, setCurrentTime } = useContext(MusicContext);
-    const { durationTime, setDurationTime } = useContext(MusicContext);
-    const { percentage, setPercentage } = useContext(MusicContext);
-    const { refMusic, setRefMusic } = useContext(MusicContext);
+    const { isSeek } = useContext(MusicContext);
+    const { currentTime } = useContext(MusicContext);
+    const { durationTime } = useContext(MusicContext);
+    const { refMusic } = useContext(MusicContext);
+    //Next song
+    const { setCurrentSongIndex } = useContext(MusicContext);
+    const { listSong } = useContext(MusicContext);
+    // Truyền ref click button để auto click Next song
+    const { setClickRefFunc } = useContext(MusicContext);
 
     // Handle button Randomy
     const handleRandom = () => {
-        setActiveRD(false);
-    };
-    const handleRandomActive = () => {
-        setActiveRD(true);
+        setActiveRD(!activeRD);
     };
     //Handle button Repeate
     const handleRepeat = () => {
-        setActiveRP(false);
-    };
-    const handleRepeatActive = () => {
-        setActiveRP(true);
+        setActiveRP(!activeRP);
+        console.log(activeRP);
     };
     //Handle button Play and Pause
     const handlePlay = () => {
+        const audio = refMusic;
         if (!selectButtonPlay) {
-            selectPlay.play();
+            audio.play();
         } else {
-            selectPlay.pause();
+            audio.pause();
         }
         setSelectButtonPlay(!selectButtonPlay);
     };
     //Handle seek
     const handleSeek = (e) => {
-        const audio = refMusic.current;
+        const audio = refMusic;
         audio.currentTime = (durationTime / 100) * e.target.value;
-        setPercentage(e.target.value);
+        // setPercentage(e.target.value);
+    };
+
+    //Next song
+    useEffect(() => {
+        setClickRefFunc(clickRef.current);
+    }, [setClickRefFunc]);
+
+    const handleNextSong = () => {
+        const audio = refMusic;
+
+        const currentIndex = listSong.findIndex((song) => song.id === data.id);
+        let nextCurrentIndex;
+        if (activeRD) {
+            nextCurrentIndex = Math.floor(Math.random() * listSong.length) % listSong.length;
+        } else {
+            nextCurrentIndex = (currentIndex + 1) % listSong.length;
+        }
+
+        setCurrentSongIndex(nextCurrentIndex);
+        const nextSong = listSong[nextCurrentIndex];
+
+        // audio.pause(); // Pause the current song
+        audio.currentTime = 0; // Reset the current time
+        audio.src = nextSong.media;
+        audio.play(); // Play the next song
+        setSelectButtonPlay(true); // Set to "playing" state
+    };
+    // Pre song
+    const handlePreviousSong = () => {
+        const audio = refMusic;
+        const currentIndex = listSong.findIndex((song) => song.id === data.id);
+        const prevCurrentIndex = (currentIndex - 1 + listSong.length) % listSong.length;
+        setCurrentSongIndex(prevCurrentIndex);
+        const prevSong = listSong[prevCurrentIndex];
+        // Play next song
+        audio.pause(); // Pause the current song
+        audio.currentTime = 0; // Reset the current time
+        audio.src = prevSong.media;
+        audio.play(); // Play the next song
+        setSelectButtonPlay(true); // Set to "playing" state
     };
     return (
         <div className={cx('wrapper')}>
@@ -64,13 +102,13 @@ function ControlsMid({ data }) {
                             <RandomIcon />
                         </button>
                     ) : (
-                        <button className={cx('btn-icon', 'btn-random')} onClick={handleRandomActive}>
+                        <button className={cx('btn-icon', 'btn-random')} onClick={handleRandom}>
                             <RandomIcon />
                         </button>
                     )}
                 </Tippy>
                 {/* PrevIcon */}
-                <button className={cx('btn-icon', 'btn-prev')}>
+                <button className={cx('btn-icon', 'btn-prev')} onClick={handlePreviousSong}>
                     <PrevIcon />
                 </button>
 
@@ -85,7 +123,7 @@ function ControlsMid({ data }) {
                     </button>
                 )}
                 {/* NextIcon */}
-                <button className={cx('btn-icon', 'btn-next')}>
+                <button ref={clickRef} className={cx('btn-icon', 'btn-next')} onClick={handleNextSong}>
                     <NextIcon />
                 </button>
                 {/* RepeatIcon */}
@@ -95,7 +133,7 @@ function ControlsMid({ data }) {
                             <RepeatIcon />
                         </button>
                     ) : (
-                        <button className={cx('btn-icon', 'btn-repeat')} onClick={handleRepeatActive}>
+                        <button className={cx('btn-icon', 'btn-repeat')} onClick={handleRepeat}>
                             <RepeatIcon />
                         </button>
                     )}
@@ -111,7 +149,7 @@ function ControlsMid({ data }) {
                         min="0"
                         max="100"
                         value={isSeek}
-                        step="0.01"
+                        step="1"
                         onChange={handleSeek}
                     />
                 </div>

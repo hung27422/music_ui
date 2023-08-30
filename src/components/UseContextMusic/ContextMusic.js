@@ -13,7 +13,14 @@ function ContextMusic({ children }) {
     const [durationTime, setDurationTime] = useState(0);
     const [isSeek, setIsSeek] = useState(0);
     const [percentage, setPercentage] = useState(0);
-    const [refMusic, setRefMusic] = useState();
+    const [refMusic, setRefMusic] = useState(null);
+    //Lấy currentSongIndex
+    const [currentSongIndex, setCurrentSongIndex] = useState(0);
+    const [listSong, setListSong] = useState();
+    // Lấy sự kiện click nextSong
+    const [clickRefFunc, setClickRefFunc] = useState(null);
+    //
+    const [activeRP, setActiveRP] = useState(false);
     return (
         <MusicContext.Provider
             value={{
@@ -28,14 +35,30 @@ function ContextMusic({ children }) {
 
                 currentTime,
                 setCurrentTime,
+
                 durationTime,
                 setDurationTime,
+
                 isSeek,
                 setIsSeek,
+
                 percentage,
                 setPercentage,
+
                 refMusic,
                 setRefMusic,
+
+                currentSongIndex,
+                setCurrentSongIndex,
+
+                listSong,
+                setListSong,
+
+                clickRefFunc,
+                setClickRefFunc,
+
+                activeRP,
+                setActiveRP,
             }}
         >
             {children}

@@ -11,37 +11,46 @@ import { faHeart as faHeartRegular } from '@fortawesome/free-regular-svg-icons';
 import styles from './MusicItem.module.scss';
 import { useState, useContext, useRef, useEffect } from 'react';
 import { MusicContext } from '../UseContextMusic/ContextMusic';
+import { click } from '@testing-library/user-event/dist/click';
 
 const cx = classNames.bind(styles);
-function MusicItem({ border, data }) {
-    const audioRef = useRef();
+function MusicItem({ border, data, crIndex }) {
+    const audioRef = useRef(null);
+    const clickRef = useRef(null);
     //Hiển thị data phần controls left => Xong ( không đụng tới)
     const { selectMusic, setSelectMusic } = useContext(MusicContext);
     // -------------------------------------------------------------
-    //Hiển thị data phần contrls mid
+    //Hiển thị data phần contrls mid để dừng và chạy cùng đúng item
     const { selectButtonPlay, setSelectButtonPlay } = useContext(MusicContext);
 
     //-- Đưa object audio chứa hàm play() và pause() vào state
-    const { selectPlay, setSelectPlay } = useContext(MusicContext);
+    const { setSelectPlay } = useContext(MusicContext);
     const [truePlay, setTruePlay] = useState(false);
-    //Handle seek
+    //-------------------------------------------Handle seek------------------------------------------------------
+    //--Truyền currentTime của audio tới ControlsMid
     const { currentTime, setCurrentTime } = useContext(MusicContext);
+    //--Truyền duration của audio tới ControlsMid
     const { durationTime, setDurationTime } = useContext(MusicContext);
-    const { isSeek, setIsSeek } = useContext(MusicContext);
-    const { percentage, setPercentage } = useContext(MusicContext);
-    const { refMusic, setRefMusic } = useContext(MusicContext);
 
+    //-- Truyền đơn vị % từ hàm handleTimeUpdate để truyền tới comp ControlsMid
+    const { setIsSeek } = useContext(MusicContext);
+
+    //-- Truyền ref của audio để truyền qua comp ControlsMid
+    const { setRefMusic } = useContext(MusicContext);
+
+    //--Nhận ref của btn NextSong
+    const { clickRefFunc } = useContext(MusicContext);
+    // Repeate
+    const { activeRP } = useContext(MusicContext);
+
+    //
+    // Xử lý Seek
     const handleTimeUpdate = (e) => {
-        // setCurrentTime(e.currentTarget.currentTime);
-        // const percent = Math.floor((currentTime / durationTime) * 100);
-        // setIsSeek(percent);
-        const percent = (e.currentTarget.currentTime / e.currentTarget.duration) * 100;
-        const time = e.currentTarget.currentTime;
-        setPercentage(+percent.toFixed(2));
-        setCurrentTime(time.toFixed(2));
-        setIsSeek(percentage);
+        setCurrentTime(e.currentTarget.currentTime);
+        const percent = Math.floor((currentTime / durationTime) * 100);
+        setIsSeek(percent);
     };
-    // onClick
+    // onClick;
     const handlePlayMusic = () => {
         const audio = {
             play() {
@@ -57,14 +66,17 @@ function MusicItem({ border, data }) {
         } else {
             audio.pause();
         }
-        // setIsPlaying(!isPlaying);
         setSelectPlay(audio);
         setSelectMusic(data);
         setSelectButtonPlay(!selectButtonPlay);
-        setRefMusic(audioRef);
+        setRefMusic(audioRef.current);
     };
-    const handleHideIcon = () => {
-        setTruePlay(false);
+    const handleOnEndedData = () => {
+        if (activeRP) {
+            audioRef.current.play();
+        } else {
+            clickRefFunc.click();
+        }
     };
     if (data === undefined) {
         return <>....</>;
@@ -81,7 +93,6 @@ function MusicItem({ border, data }) {
                         src="https://zmp3-static.zmdcdn.me/skins/zmp3-v6.1/images/icons/icon-playing.gif"
                         alt="audio"
                         onClick={handlePlayMusic}
-                        onBlur={handleHideIcon}
                     />
                 ) : (
                     <FontAwesomeIcon
@@ -98,6 +109,7 @@ function MusicItem({ border, data }) {
                         setDurationTime(e.currentTarget.duration.toFixed(2));
                     }}
                     onTimeUpdate={handleTimeUpdate}
+                    onEnded={handleOnEndedData}
                 ></audio>
                 <div className={cx('info')}>
                     <span className={cx('music-name')}>{data.title}</span>
