@@ -4,29 +4,32 @@ import 'tippy.js/dist/tippy.css';
 
 import styles from './ControlsMid.module.scss';
 import { NextIcon, PauseIcon, PlayIcon, PrevIcon, RandomIcon, RepeatIcon } from '../Icons/Icons';
-import { createRef, useState, forwardRef, useContext, useEffect, useRef } from 'react';
+import { useState, useContext, useEffect, useRef } from 'react';
 import { MusicContext } from '../UseContextMusic/ContextMusic';
-import { ValueContext } from '../NewRelease/AllMusic/AllMusic';
 const cx = classNames.bind(styles);
 function ControlsMid({ data }) {
     const clickRef = useRef();
     const seekRef = useRef();
     //Active repeate và random
     const [activeRD, setActiveRD] = useState(false);
-    const { activeRP, setActiveRP } = useContext(MusicContext);
-    //Handle play and pause
-    const { selectButtonPlay, setSelectButtonPlay } = useContext(MusicContext);
-    //Handle Seek
-    const { isSeek } = useContext(MusicContext);
-    const { currentTime } = useContext(MusicContext);
-    const { durationTime } = useContext(MusicContext);
-    const { refMusic } = useContext(MusicContext);
-    //Next song
-    const { setCurrentSongIndex } = useContext(MusicContext);
-    const { listSong } = useContext(MusicContext);
-    // Truyền ref click button để auto click Next song
-    const { setClickRefFunc } = useContext(MusicContext);
+    const {
+        activeRP,
+        setActiveRP,
+        selectButtonPlay,
+        setSelectButtonPlay,
+        isSeek,
+        currentTime,
+        durationTime,
+        refMusic,
+        setCurrentSongIndex,
+        listSong,
+        setClickRefFunc,
+        selectPlay,
+    } = useContext(MusicContext);
 
+    // useEffect(() => {
+    //     console.log(selectPlay);
+    // })
     // Handle button Randomy
     const handleRandom = () => {
         setActiveRD(!activeRD);
@@ -38,17 +41,17 @@ function ControlsMid({ data }) {
     };
     //Handle button Play and Pause
     const handlePlay = () => {
-        const audio = refMusic;
+        const audio = refMusic?.current;
         if (!selectButtonPlay) {
-            audio.play();
+            audio?.play();
         } else {
-            audio.pause();
+            audio?.pause();
         }
         setSelectButtonPlay(!selectButtonPlay);
     };
     //Handle seek
     const handleSeek = (e) => {
-        const audio = refMusic;
+        const audio = refMusic.current;
         audio.currentTime = (durationTime / 100) * e.target.value;
         // setPercentage(e.target.value);
     };
@@ -59,12 +62,14 @@ function ControlsMid({ data }) {
     }, [setClickRefFunc]);
 
     const handleNextSong = () => {
-        const audio = refMusic;
+        const audio = refMusic.current;
 
         const currentIndex = listSong.findIndex((song) => song.id === data.id);
         let nextCurrentIndex;
         if (activeRD) {
-            nextCurrentIndex = Math.floor(Math.random() * listSong.length) % listSong.length;
+            do {
+                nextCurrentIndex = Math.floor(Math.random() * listSong.length) % listSong.length;
+            } while (nextCurrentIndex === currentIndex);
         } else {
             nextCurrentIndex = (currentIndex + 1) % listSong.length;
         }
@@ -72,7 +77,7 @@ function ControlsMid({ data }) {
         setCurrentSongIndex(nextCurrentIndex);
         const nextSong = listSong[nextCurrentIndex];
 
-        // audio.pause(); // Pause the current song
+        audio.pause(); // Pause the current song
         audio.currentTime = 0; // Reset the current time
         audio.src = nextSong.media;
         audio.play(); // Play the next song
@@ -80,7 +85,7 @@ function ControlsMid({ data }) {
     };
     // Pre song
     const handlePreviousSong = () => {
-        const audio = refMusic;
+        const audio = refMusic.current;
         const currentIndex = listSong.findIndex((song) => song.id === data.id);
         const prevCurrentIndex = (currentIndex - 1 + listSong.length) % listSong.length;
         setCurrentSongIndex(prevCurrentIndex);

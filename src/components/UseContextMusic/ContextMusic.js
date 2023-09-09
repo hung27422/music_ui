@@ -1,6 +1,6 @@
 import { createContext, useState } from 'react';
 // UseContext để selectMusicted
-export const MusicContext = createContext(null);
+export const MusicContext = createContext();
 
 function ContextMusic({ children }) {
     //Truyền dữ liệu bài hát qua controls left
@@ -16,14 +16,25 @@ function ContextMusic({ children }) {
     const [refMusic, setRefMusic] = useState(null);
     //Lấy currentSongIndex
     const [currentSongIndex, setCurrentSongIndex] = useState(0);
-    const [listSong, setListSong] = useState();
+    const [listSong, setListSong] = useState([]);
     // Lấy sự kiện click nextSong
     const [clickRefFunc, setClickRefFunc] = useState(null);
-    //
+    // handle btn repeate
     const [activeRP, setActiveRP] = useState(false);
+
+    const [truePlay, setTruePlay] = useState(false);
+
+    const [isPlaying, setIsPlaying] = useState(false);
+
+    const togglePlay = () => {
+        setIsPlaying((prevIsPlaying) => !prevIsPlaying);
+    };
     return (
         <MusicContext.Provider
             value={{
+                isPlaying,
+                togglePlay,
+
                 selectMusic,
                 setSelectMusic,
 
@@ -59,6 +70,9 @@ function ContextMusic({ children }) {
 
                 activeRP,
                 setActiveRP,
+
+                truePlay,
+                setTruePlay,
             }}
         >
             {children}

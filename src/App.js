@@ -1,12 +1,15 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { publicRoutes } from '~/routes/routes';
 import DefaultLayout from '~/layouts/DefaultLayout';
-import { Fragment } from 'react';
+import { Fragment, useContext, useRef } from 'react';
+import { MusicContext } from './components/UseContextMusic/ContextMusic';
+import AudioPlayer from './components/AudioPlayer/AudioPlayer';
 
 function App() {
     return (
         <Router>
             <div className="App">
+                <AudioPlayer />
                 <Routes>
                     {publicRoutes.map((route, index) => {
                         const Layout = route.layout === null ? Fragment : DefaultLayout;

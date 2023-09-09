@@ -4,12 +4,14 @@ import styles from './Search.module.scss';
 import { useEffect, useRef, useState } from 'react';
 
 import TippyHeadless from '@tippyjs/react/headless';
+import axios from 'axios';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClose, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 
 import Popper from '~/components/Popper';
 import MusicItem from '~/components/MusicItem - S';
+import request from '~/untils/request';
 import { useDebounce } from '~/hooks';
 
 const cx = classNames.bind(styles);
@@ -48,13 +50,18 @@ function Search() {
         if (!debounceValue) {
             return;
         }
-        fetch(`http://localhost:3000/song?title=${debounceValue}`)
-            .then((response) => response.json())
+        request
+            .get('song', {
+                params: {
+                    title: debounceValue,
+                },
+            })
             .then((response) => {
-                setSearchResult(response);
+                setSearchResult(response.data);
             });
     }, [debounceValue]);
-    //Logic TippyHeadless
+
+    //Logic TippyHeadless.data
     const searchResultTippy = (attrs) => (
         <Popper>
             <div className={cx('search-result')} tabIndex="-1" {...attrs}>

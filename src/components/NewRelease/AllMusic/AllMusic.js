@@ -8,10 +8,8 @@ const cx = classNames.bind(styles);
 
 function AllMusic() {
     const [value, setValue] = useState([]);
-    const { currentSongIndex } = useContext(MusicContext);
-    const { setSelectMusic } = useContext(MusicContext);
-    const { listSong, setListSong } = useContext(MusicContext);
-
+    const { selectMusic, currentSongIndex, setCurrentSongIndex, listSong, setListSong, setSelectMusic } =
+        useContext(MusicContext);
     useEffect(() => {
         fetch('http://localhost:3000/newreleaseall')
             .then((response) => response.json())
@@ -21,9 +19,11 @@ function AllMusic() {
     }, []);
 
     useEffect(() => {
-        setSelectMusic(value[currentSongIndex]);
+        if (!selectMusic) {
+            setSelectMusic(value[currentSongIndex]);
+        }
         setListSong(value);
-    }, [listSong, currentSongIndex, setListSong, setSelectMusic, value]);
+    }, [listSong, currentSongIndex, setListSong, setSelectMusic, value, selectMusic]);
 
     return (
         <div className={cx('wrapper')}>
@@ -37,12 +37,18 @@ function AllMusic() {
             </div>
             <div className={cx('body-mid')}>
                 {value.map(
-                    (result) => result.column === '2' && <MusicItem key={result.id} border data={result}></MusicItem>,
+                    (result, index) =>
+                        result.column === '2' && (
+                            <MusicItem crIndex={index} key={result.id} border data={result}></MusicItem>
+                        ),
                 )}
             </div>
             <div className={cx('body-right')}>
                 {value.map(
-                    (result) => result.column === '3' && <MusicItem key={result.id} border data={result}></MusicItem>,
+                    (result, index) =>
+                        result.column === '3' && (
+                            <MusicItem crIndex={index} key={result.id} border data={result}></MusicItem>
+                        ),
                 )}
             </div>
         </div>

@@ -9,75 +9,40 @@ import { faPlay, faEllipsis } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as faHeartRegular } from '@fortawesome/free-regular-svg-icons';
 
 import styles from './MusicItem.module.scss';
-import { useState, useContext, useRef, useEffect } from 'react';
+import { useContext, useEffect, useRef } from 'react';
 import { MusicContext } from '../UseContextMusic/ContextMusic';
-import { click } from '@testing-library/user-event/dist/click';
 
 const cx = classNames.bind(styles);
 function MusicItem({ border, data, crIndex }) {
-    const audioRef = useRef(null);
-    const clickRef = useRef(null);
-    //Hiển thị data phần controls left => Xong ( không đụng tới)
-    const { selectMusic, setSelectMusic } = useContext(MusicContext);
-    // -------------------------------------------------------------
-    //Hiển thị data phần contrls mid để dừng và chạy cùng đúng item
-    const { selectButtonPlay, setSelectButtonPlay } = useContext(MusicContext);
-
-    //-- Đưa object audio chứa hàm play() và pause() vào state
-    const { setSelectPlay } = useContext(MusicContext);
-    const [truePlay, setTruePlay] = useState(false);
-    //-------------------------------------------Handle seek------------------------------------------------------
-    //--Truyền currentTime của audio tới ControlsMid
-    const { currentTime, setCurrentTime } = useContext(MusicContext);
-    //--Truyền duration của audio tới ControlsMid
-    const { durationTime, setDurationTime } = useContext(MusicContext);
-
-    //-- Truyền đơn vị % từ hàm handleTimeUpdate để truyền tới comp ControlsMid
-    const { setIsSeek } = useContext(MusicContext);
-
-    //-- Truyền ref của audio để truyền qua comp ControlsMid
-    const { setRefMusic } = useContext(MusicContext);
-
-    //--Nhận ref của btn NextSong
-    const { clickRefFunc } = useContext(MusicContext);
-    // Repeate
-    const { activeRP } = useContext(MusicContext);
-
-    //
+    const {
+        selectMusic,
+        setSelectMusic,
+        selectButtonPlay,
+        setSelectButtonPlay,
+        setCurrentSongIndex,
+        refMusic,
+    } = useContext(MusicContext);
     // Xử lý Seek
-    const handleTimeUpdate = (e) => {
-        setCurrentTime(e.currentTarget.currentTime);
-        const percent = Math.floor((currentTime / durationTime) * 100);
-        setIsSeek(percent);
-    };
-    // onClick;
     const handlePlayMusic = () => {
-        const audio = {
-            play() {
-                audioRef.current.play();
-            },
-            pause() {
-                audioRef.current.pause();
-            },
-        };
-        if (!selectButtonPlay) {
-            audio.play();
-            setTruePlay(true);
+        const isCurrentlyPlaying = selectButtonPlay && data.id === selectMusic?.id;
+        if (isCurrentlyPlaying) {
+            // Pause the currently playing track
+            refMusic.current.pause();
+            setSelectButtonPlay(false);
         } else {
-            audio.pause();
+            // Stop all other audio tracks and play the selected one
+            const allAudioElements = document.getElementsByTagName('audio');
+            for (let i = 0; i < allAudioElements.length; i++) {
+                allAudioElements[i].pause();
+            }
+            refMusic.current.play();
+            setSelectButtonPlay(true);
         }
-        setSelectPlay(audio);
+        setCurrentSongIndex(crIndex);
         setSelectMusic(data);
-        setSelectButtonPlay(!selectButtonPlay);
-        setRefMusic(audioRef.current);
     };
-    const handleOnEndedData = () => {
-        if (activeRP) {
-            audioRef.current.play();
-        } else {
-            clickRefFunc.click();
-        }
-    };
+    //OnEnded
+
     if (data === undefined) {
         return <>....</>;
     }
@@ -87,7 +52,7 @@ function MusicItem({ border, data, crIndex }) {
                 <div className={cx('figure')}>
                     <img className={cx('avatar')} src={data.avatar} alt={data.title} />
                 </div>
-                {!!selectButtonPlay && !!truePlay ? (
+                {!!selectButtonPlay && data.id === selectMusic?.id ? (
                     <img
                         className={cx('btn-audio')}
                         src="https://zmp3-static.zmdcdn.me/skins/zmp3-v6.1/images/icons/icon-playing.gif"
@@ -101,16 +66,6 @@ function MusicItem({ border, data, crIndex }) {
                         onClick={handlePlayMusic}
                     ></FontAwesomeIcon>
                 )}
-
-                <audio
-                    ref={audioRef}
-                    src={data.media}
-                    onLoadedData={(e) => {
-                        setDurationTime(e.currentTarget.duration.toFixed(2));
-                    }}
-                    onTimeUpdate={handleTimeUpdate}
-                    onEnded={handleOnEndedData}
-                ></audio>
                 <div className={cx('info')}>
                     <span className={cx('music-name')}>{data.title}</span>
                     <div style={{ display: 'flex' }}>

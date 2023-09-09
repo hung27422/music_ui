@@ -1,23 +1,40 @@
 import classNames from 'classnames/bind';
 import MusicItem from '~/components/MusicItem - S';
 import styles from './RapViet.module.scss';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { MusicContext } from '~/components/UseContextMusic/ContextMusic';
+
 const cx = classNames.bind(styles);
 function RapViet() {
     const [value, setValue] = useState([]);
+    const { selectMusic, currentSongIndex, setSelectMusic, listSong, setListSong } = useContext(MusicContext);
 
     useEffect(() => {
-        fetch(`http://localhost:3000/newreleaserapviet`)
+        fetch('http://localhost:3000/newreleaseall')
             .then((response) => response.json())
-            .then((response) => setValue(response));
-    });
+            .then((response) => {
+                setValue(response);
+            });
+    }, []);
+
+    useEffect(() => {
+        if (!selectMusic) {
+            setSelectMusic(value[currentSongIndex]);
+        }
+        setListSong(value);
+    }, [listSong, currentSongIndex, setListSong, setSelectMusic, value]);
+
     return (
         <div className={cx('wrapper')}>
             <div className={cx('body-left')}>
-                {value.map((result) => result.column === '1' && <MusicItem border data={result}></MusicItem>)}
+                {listSong.map(
+                    (result) => result.column === '1' && <MusicItem key={result.id} border data={result}></MusicItem>,
+                )}
             </div>
             <div className={cx('body-mid')}>
-            {value.map((result) => result.column === '2' && <MusicItem border data={result}></MusicItem>)}
+                {listSong.map(
+                    (result) => result.column === '2' && <MusicItem key={result.id} border data={result}></MusicItem>,
+                )}
             </div>
             <div className={cx('body-right')}>
                 <MusicItem border></MusicItem>
