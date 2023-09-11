@@ -3,29 +3,13 @@ import styles from './NewRelease.module.scss';
 
 import RapViet from './RapViet/RapViet';
 import MusicLove from './MusicLove/MusicLove';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import AllMusic from './AllMusic/AllMusic';
+import { MusicContext } from '../UseContextMusic/ContextMusic';
 const cx = classNames.bind(styles);
 function NewRelease({ title }) {
-    const [value, setValue] = useState([]);
     const [active, setActive] = useState('1');
-    const [currentSongIndex, setCurrentSongIndex] = useState(null);
-    const [listSong, setListSong] = useState([]);
-    const [selectMusic, setSelectMusic] = useState(null);
-
-    // Lấy dữ liệu âm nhạc và thiết lập trạng thái ban đầu ở đây
-    // useEffect(() => {
-    //     fetch('http://localhost:3000/newreleaseall')
-    //         .then((response) => response.json())
-    //         .then((response) => {
-    //             setValue(response);
-    //         });
-    // }, []);
-
-    // useEffect(() => {
-    //     setSelectMusic(value[currentSongIndex]);
-    //     setListSong(value);
-    // }, [listSong, currentSongIndex, setListSong, setSelectMusic, value]);
+    const { selectMusic } = useContext(MusicContext);
 
     const handleActive = (e) => {
         setActive(e.target.id);
@@ -47,7 +31,7 @@ function NewRelease({ title }) {
             <div className={cx('body')}>
                 {active === '1' && (
                     <div className={cx('page-mini')}>
-                        <AllMusic />
+                        <AllMusic data={selectMusic} />
                     </div>
                 )}
 

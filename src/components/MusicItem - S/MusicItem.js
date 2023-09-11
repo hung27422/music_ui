@@ -9,7 +9,7 @@ import { faPlay, faEllipsis } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as faHeartRegular } from '@fortawesome/free-regular-svg-icons';
 
 import styles from './MusicItem.module.scss';
-import { useContext, useEffect, useRef } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { MusicContext } from '../UseContextMusic/ContextMusic';
 
 const cx = classNames.bind(styles);
@@ -21,13 +21,29 @@ function MusicItem({ border, data, crIndex }) {
         setSelectButtonPlay,
         setCurrentSongIndex,
         refMusic,
+        listSong,
     } = useContext(MusicContext);
-    // Xử lý Seek
+
+    useEffect(() => {
+        const audio = refMusic?.current;
+        if (audio) {
+            audio.addEventListener('loadeddata', () => {
+                // Dữ liệu âm thanh đã sẵn sàng, bạn có thể phát ngay lúc này
+                if (selectButtonPlay && data.id === selectMusic?.id) {
+                    audio.play();
+                }
+            });
+        }
+    }, [selectButtonPlay, selectMusic, data, refMusic]);
+
     const handlePlayMusic = () => {
-        const isCurrentlyPlaying = selectButtonPlay && data.id === selectMusic?.id;
+        const audio = refMusic.current;
+        if (!data && !selectMusic) {
+            return;
+        }
+        const isCurrentlyPlaying = selectButtonPlay && data.id === selectMusic.id;
         if (isCurrentlyPlaying) {
-            // Pause the currently playing track
-            refMusic.current.pause();
+            audio.pause();
             setSelectButtonPlay(false);
         } else {
             // Stop all other audio tracks and play the selected one
@@ -35,13 +51,13 @@ function MusicItem({ border, data, crIndex }) {
             for (let i = 0; i < allAudioElements.length; i++) {
                 allAudioElements[i].pause();
             }
-            refMusic.current.play();
+            audio.play();
             setSelectButtonPlay(true);
         }
-        setCurrentSongIndex(crIndex);
+        const currentIndex = listSong.findIndex((song) => song.id === data.id);
+        setCurrentSongIndex(currentIndex);
         setSelectMusic(data);
     };
-    //OnEnded
 
     if (data === undefined) {
         return <>....</>;

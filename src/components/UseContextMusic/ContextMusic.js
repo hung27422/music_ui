@@ -26,14 +26,11 @@ function ContextMusic({ children }) {
 
     const [isPlaying, setIsPlaying] = useState(false);
 
-    const togglePlay = () => {
-        setIsPlaying((prevIsPlaying) => !prevIsPlaying);
-    };
     return (
         <MusicContext.Provider
             value={{
                 isPlaying,
-                togglePlay,
+                setIsPlaying,
 
                 selectMusic,
                 setSelectMusic,

@@ -9,7 +9,7 @@ function App() {
     return (
         <Router>
             <div className="App">
-                <AudioPlayer />
+                
                 <Routes>
                     {publicRoutes.map((route, index) => {
                         const Layout = route.layout === null ? Fragment : DefaultLayout;

@@ -22,7 +22,7 @@ function RapViet() {
             setSelectMusic(value[currentSongIndex]);
         }
         setListSong(value);
-    }, [listSong, currentSongIndex, setListSong, setSelectMusic, value]);
+    }, [currentSongIndex, selectMusic, setListSong, setSelectMusic, value]);
 
     return (
         <div className={cx('wrapper')}>

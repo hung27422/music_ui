@@ -8,8 +8,7 @@ const cx = classNames.bind(styles);
 
 function AllMusic() {
     const [value, setValue] = useState([]);
-    const { selectMusic, currentSongIndex, setCurrentSongIndex, listSong, setListSong, setSelectMusic } =
-        useContext(MusicContext);
+    const { selectMusic, currentSongIndex, setListSong, setSelectMusic } = useContext(MusicContext);
     useEffect(() => {
         fetch('http://localhost:3000/newreleaseall')
             .then((response) => response.json())
@@ -19,12 +18,13 @@ function AllMusic() {
     }, []);
 
     useEffect(() => {
+        setListSong(value);
+    }, [setListSong, value]);
+    useEffect(() => {   
         if (!selectMusic) {
             setSelectMusic(value[currentSongIndex]);
         }
-        setListSong(value);
-    }, [listSong, currentSongIndex, setListSong, setSelectMusic, value, selectMusic]);
-
+    }, [currentSongIndex, selectMusic, setSelectMusic, value]);
     return (
         <div className={cx('wrapper')}>
             <div className={cx('body-left')}>

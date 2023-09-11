@@ -1,8 +1,8 @@
 import { useContext, useEffect, useRef } from 'react';
 import { MusicContext } from '../UseContextMusic/ContextMusic';
 
-function AudioPlayer() {
-    const audioRef = useRef();
+function AudioPlayer({ data }) {
+    const audioRef = useRef(null);
 
     const {
         selectMusic,
@@ -18,7 +18,7 @@ function AudioPlayer() {
     useEffect(() => {
         setRefMusic(audioRef);
     }, [audioRef, setRefMusic]);
-    
+
     const handleTimeUpdate = (e) => {
         setCurrentTime(e.currentTarget.currentTime);
         const percent = Math.floor((currentTime / durationTime) * 100);

@@ -6,6 +6,7 @@ import styles from './ControlsMid.module.scss';
 import { NextIcon, PauseIcon, PlayIcon, PrevIcon, RandomIcon, RepeatIcon } from '../Icons/Icons';
 import { useState, useContext, useEffect, useRef } from 'react';
 import { MusicContext } from '../UseContextMusic/ContextMusic';
+import AudioPlayer from '../AudioPlayer/AudioPlayer';
 const cx = classNames.bind(styles);
 function ControlsMid({ data }) {
     const clickRef = useRef();
@@ -24,12 +25,10 @@ function ControlsMid({ data }) {
         setCurrentSongIndex,
         listSong,
         setClickRefFunc,
-        selectPlay,
+        currentSongIndex,
+        setSelectMusic,
     } = useContext(MusicContext);
 
-    // useEffect(() => {
-    //     console.log(selectPlay);
-    // })
     // Handle button Randomy
     const handleRandom = () => {
         setActiveRD(!activeRD);
@@ -41,11 +40,11 @@ function ControlsMid({ data }) {
     };
     //Handle button Play and Pause
     const handlePlay = () => {
-        const audio = refMusic?.current;
+        const audio = refMusic.current;
         if (!selectButtonPlay) {
-            audio?.play();
+            audio.play();
         } else {
-            audio?.pause();
+            audio.pause();
         }
         setSelectButtonPlay(!selectButtonPlay);
     };
@@ -62,25 +61,17 @@ function ControlsMid({ data }) {
     }, [setClickRefFunc]);
 
     const handleNextSong = () => {
-        const audio = refMusic.current;
-
-        const currentIndex = listSong.findIndex((song) => song.id === data.id);
         let nextCurrentIndex;
         if (activeRD) {
             do {
                 nextCurrentIndex = Math.floor(Math.random() * listSong.length) % listSong.length;
-            } while (nextCurrentIndex === currentIndex);
+            } while (nextCurrentIndex === currentSongIndex);
         } else {
-            nextCurrentIndex = (currentIndex + 1) % listSong.length;
+            nextCurrentIndex = (currentSongIndex + 1) % listSong.length;
         }
-
         setCurrentSongIndex(nextCurrentIndex);
         const nextSong = listSong[nextCurrentIndex];
-
-        audio.pause(); // Pause the current song
-        audio.currentTime = 0; // Reset the current time
-        audio.src = nextSong.media;
-        audio.play(); // Play the next song
+        setSelectMusic(nextSong);
         setSelectButtonPlay(true); // Set to "playing" state
     };
     // Pre song
@@ -99,6 +90,7 @@ function ControlsMid({ data }) {
     };
     return (
         <div className={cx('wrapper')}>
+            <AudioPlayer data={data} />
             <div className={cx('item-top')}>
                 {/* RandomIcon */}
                 <Tippy content="Phát Ngẫu nhiên">
