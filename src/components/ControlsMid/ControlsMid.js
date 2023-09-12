@@ -76,16 +76,17 @@ function ControlsMid({ data }) {
     };
     // Pre song
     const handlePreviousSong = () => {
-        const audio = refMusic.current;
-        const currentIndex = listSong.findIndex((song) => song.id === data.id);
-        const prevCurrentIndex = (currentIndex - 1 + listSong.length) % listSong.length;
+        let prevCurrentIndex;
+        if (activeRD) {
+            do {
+                prevCurrentIndex = Math.floor(Math.random() * listSong.length) % listSong.length;
+            } while (prevCurrentIndex === currentSongIndex);
+        } else {
+            prevCurrentIndex = (currentSongIndex - 1 + listSong.length) % listSong.length;
+        }
         setCurrentSongIndex(prevCurrentIndex);
-        const prevSong = listSong[prevCurrentIndex];
-        // Play next song
-        audio.pause(); // Pause the current song
-        audio.currentTime = 0; // Reset the current time
-        audio.src = prevSong.media;
-        audio.play(); // Play the next song
+        const nextSong = listSong[prevCurrentIndex];
+        setSelectMusic(nextSong);
         setSelectButtonPlay(true); // Set to "playing" state
     };
     return (

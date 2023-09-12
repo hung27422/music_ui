@@ -24,6 +24,13 @@
     width: 100%;
     cursor: pointer;
 }
+.sound-slider {
+    display: flex;
+    height: 3px;
+    width: 100%;
+    border-radius: 4px;
+    cursor: pointer;
+}
 .btn-sound {
     width: 106px;
     display: flex;
@@ -45,6 +52,7 @@
         display: block;
     }
 }
+
 .sound-handle {
     display: none;
     border-radius: 50%;

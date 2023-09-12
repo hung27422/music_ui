@@ -26,9 +26,19 @@ function ContextMusic({ children }) {
 
     const [isPlaying, setIsPlaying] = useState(false);
 
+    const [volume, setVolume] = useState(1);
+
+    const [muteVolume, setMuteVolume] = useState(false);
+
     return (
         <MusicContext.Provider
             value={{
+                muteVolume,
+                setMuteVolume,
+
+                volume,
+                setVolume,
+                
                 isPlaying,
                 setIsPlaying,
 

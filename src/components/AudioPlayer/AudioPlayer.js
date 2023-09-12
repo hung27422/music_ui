@@ -1,5 +1,6 @@
 import { useContext, useEffect, useRef } from 'react';
 import { MusicContext } from '../UseContextMusic/ContextMusic';
+import { parse } from '@fortawesome/fontawesome-svg-core';
 
 function AudioPlayer({ data }) {
     const audioRef = useRef(null);
@@ -14,10 +15,25 @@ function AudioPlayer({ data }) {
         setIsSeek,
         clickRefFunc,
         activeRP,
+        volume,
+        setVolume,
+        muteVolume,
     } = useContext(MusicContext);
+
     useEffect(() => {
         setRefMusic(audioRef);
     }, [audioRef, setRefMusic]);
+
+    useEffect(() => {
+        if (audioRef.current) {
+            if (!muteVolume) {
+                audioRef.current.volume = volume;
+            } else {
+                audioRef.current.volume = 0;
+                setVolume(0);
+            }
+        }
+    }, [muteVolume, setVolume, volume]);
 
     const handleTimeUpdate = (e) => {
         setCurrentTime(e.currentTarget.currentTime);
@@ -32,6 +48,7 @@ function AudioPlayer({ data }) {
             clickRefFunc.click();
         }
     };
+
     return (
         <audio
             ref={audioRef}
