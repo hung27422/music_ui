@@ -6,5 +6,9 @@ const router = {
     top100: '/top100',
     listeningNear: '/history',
     topicAndType: '/topicAndType',
+    admin: '/admin',
+    crudnewreleases: '/crudnewreleases',
+    crudsong: '/crudsong',
+    dashboard: '/dashboard',
 };
 export default router;

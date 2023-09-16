@@ -20,7 +20,7 @@ function AllMusic() {
     useEffect(() => {
         setListSong(value);
     }, [setListSong, value]);
-    useEffect(() => {   
+    useEffect(() => {
         if (!selectMusic) {
             setSelectMusic(value[currentSongIndex]);
         }

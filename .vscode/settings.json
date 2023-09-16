@@ -1,5 +1,16 @@
 {
     "editor.formatOnSave": true,
     "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "cSpell.words": ["kiếm", "Ngẫu", "nhiên", "numberorder", "Phát", "Truyền", "Viet", "Việt"]
+    "cSpell.words": [
+        "crudnewreleases",
+        "crudsong",
+        "kiếm",
+        "Ngẫu",
+        "nhiên",
+        "numberorder",
+        "Phát",
+        "Truyền",
+        "Viet",
+        "Việt"
+    ]
 }

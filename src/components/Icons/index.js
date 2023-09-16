@@ -14,5 +14,6 @@ export {
     MVIcon,
     MicroIcon,
     SoundIcon,
-    MuteIcon
+    MuteIcon,
+    AddIcon
 } from './Icons';

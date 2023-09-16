@@ -1,4 +1,12 @@
-import { faClockRotateLeft, faHeart, faHouse, faMusic, faRecordVinyl, faStar } from '@fortawesome/free-solid-svg-icons';
+import {
+    faClockRotateLeft,
+    faHeart,
+    faHouse,
+    faMusic,
+    faRecordVinyl,
+    faSquarePlus,
+    faStar,
+} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 export function HomeIcon() {
     return <FontAwesomeIcon icon={faHouse} />;
@@ -57,6 +65,9 @@ export function ListenNearIcon() {
 }
 export function SongFavoriteIcon() {
     return <FontAwesomeIcon icon={faHeart} />;
+}
+export function AddIcon() {
+    return <FontAwesomeIcon icon={faSquarePlus} />;
 }
 export function RandomIcon() {
     return (

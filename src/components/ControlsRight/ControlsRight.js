@@ -34,7 +34,7 @@ function ControlsRight() {
                 {!!muteVolume ? (
                     <button className={cx('btn-volume', 'btn-icon')} onClick={handleMuteVolume}>
                         <MuteIcon />
-                    </button>
+                    </button>   
                 ) : (
                     <button className={cx('btn-volume', 'btn-icon')} onClick={handleMuteVolume}>
                         <SoundIcon onClick={handleMuteVolume} />

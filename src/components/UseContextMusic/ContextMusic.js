@@ -38,7 +38,7 @@ function ContextMusic({ children }) {
 
                 volume,
                 setVolume,
-                
+
                 isPlaying,
                 setIsPlaying,
 
