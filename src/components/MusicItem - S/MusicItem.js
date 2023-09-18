@@ -85,8 +85,9 @@ function MusicItem({ border, data, crIndex }) {
                 <div className={cx('info')}>
                     <span className={cx('music-name')}>{data.title}</span>
                     <div style={{ display: 'flex' }}>
-                        <Link className={cx('author')}>{data.artist}</Link>
-                        {data.artist2 && <Link className={cx('author')}>, {data.artist2}</Link>}
+                        {data.artist1 && <Link className={cx('author')}>{data.artist1}</Link>}
+                        {data.artist2 && <Link className={cx('author')}>{data.artist2}</Link>}
+                        {data.artist3 && <Link className={cx('author')}>{data.artist3}</Link>}
                     </div>
                 </div>
             </div>
